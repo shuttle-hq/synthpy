@@ -1,7 +1,7 @@
 .. _generate:
 
-Generate
-========
+Generate API
+============
 
 **Synth** is a synthetic data engine. It allows you to synthesize any
 kind of semi-structured data - encoded as JSON. This removes sensitive

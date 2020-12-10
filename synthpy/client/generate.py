@@ -1,32 +1,36 @@
-from .utils import NamespacedClient
+from .utils import NamespacedClient, scoped
 from .transport import Method
 
 
 class GenerateClient(NamespacedClient):
     """Base class for the Generate API.
 
-    **Do not construct this class directly**. Instead, access it from
-    the root :class:`.Synth` client.
+    .. note::
+        Do not construct this class directly. Access it from the root
+        :class:`.Synth` client instead.
 
     Example:
         .. code-block:: python
 
-           from synthpy import Synth
-           client = Synth()
-           client.generate.get_documents("my_namespace", "my_collection", size=10)
+           >>> from synthpy import Synth
+           >>> client = Synth()
+           >>> client.get_documents(namespace="my_namespace", size=10)
     """
 
-    def get_documents(self, namespace, collection=None, size=1):
+    @scoped("namespace")
+    def get_documents(self, collection=None, size=1, namespace=None):
         """Generate one or more synthetic documents.
 
         Args:
-            namespace (str): The namespace we should generate documents for.
             collection (str, optional): the collection we want to
                 generate documents for.  If not set, we will generate
-                documents from all collections belonging to the
+                documents for all collections belonging to the
                 namespace.
             size (int, defaults to 1): the target number of documents
                 to generate.
+            namespace (str, optional): the namespace we should
+                generate documents for. Can be omitted if previously
+                set when initializing the client.
 
         .. warning::
            There is no guarantee you will get

@@ -31,11 +31,8 @@ class Method:
 class Path:
     def __init__(self):
         self._path = "/"
-        self.has_query_param = False
 
     def push(self, part):
-        if self.has_query_param:
-            raise RuntimeError("Cannot add path param after query param")
         self._path = urljoin(f"{self._path}/", part)
         return self
 
@@ -54,6 +51,7 @@ class RequestBuilder:
         self.method = method
 
         self.path = Path()
+
         self._body = None
         self._params = {}
 
@@ -83,7 +81,7 @@ class Transport:
     """Low-level internal transport handler used by API clients.
     """
 
-    def __init__(self, host, enable_tls=False):
+    def __init__(self, host, defaults={}, enable_tls=False):
         split = host.split(":")
         if len(split) == 1:
             host = split[0]
@@ -99,10 +97,16 @@ class Transport:
             )
         self.enable_tls = enable_tls
 
+        self.defaults = defaults
+        self.active = {}
+
         scheme = "https" if self.enable_tls else "http"
         self.base_url = URL.build(scheme=scheme, host=host, port=port)
 
         self.session = ClientSession(json_serialize=json_serialize)
+
+    def get_default(self, name):
+        return self.defaults.get(name)
 
     def request(self, method):
         """Create a new :class:`.RequestBuilder`.
@@ -126,7 +130,7 @@ class Transport:
         params = request._params
 
         logger.info(
-            f"request: method={request.method} url={url}"
+            f"request: method={request.method} url={url} body={body}"
         )
         resp = await fn(url=url, json=body, params=params)
 
@@ -139,6 +143,7 @@ class Transport:
             logger.info(f"response: status={resp.status} body={body}")
             cls = HTTP_EXCEPTIONS.get(resp.status, InternalServerError)
             body = {} if not body else body
+            print(resp.status)
             raise cls(**body)
         else:
             return body

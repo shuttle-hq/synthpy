@@ -1,23 +1,25 @@
 from .transport import Method
-from .utils import NamespacedClient
-from ..exceptions import BadRequest
+from .utils import NamespacedClient, scoped
+from ..exceptions import ImproperlyConfigured
 
 
 class IngestClient(NamespacedClient):
     """Base class for the Ingest API.
 
-    **Do not construct this class directly**. Instead, access it from
-    the root :class:`.Synth` client.
+    .. note::
+        Do not construct this class directly. Access it from the root
+        :class:`.Synth` client instead.
 
     Example:
         .. code-block:: python
 
-           from synthpy import Synth
-           client = Synth()
-           client.ingest.put_documents("my_namespace", "my_collection", document={"yes?": True})
+           >>> from synthpy import Synth
+           >>> client = Synth()
+           >>> client.put_documents(namespace="my_namespace", collection="my_collection", document={"yes?": True})
     """
 
-    def put_documents(self, namespace, collection, document=None, batch=None):
+    @scoped("namespace")
+    def put_documents(self, collection=None, document=None, batch=None, namespace=None):
         """Ingest one or more documents.
 
         This supports both individual and batch document ingestion. In
@@ -42,16 +44,21 @@ class IngestClient(NamespacedClient):
 
         """
 
-        if document and batch or (not document and not batch):
-            raise BadRequest("exactly one of 'document' or 'batch' must be set")
+        has_document = document is not None
+        has_batch = batch is not None
+        if has_document and has_batch or (not has_document and not has_batch):
+            raise ImproperlyConfigured("batch, document", "exactly one of 'document' or 'batch' must be set")
 
         request = self.transport.request(Method.PUT)
 
+        if not namespace or not collection:
+            raise ImproperlyConfigured("namespace, collection", "'namespace' and 'collection' are required arguments")
+
         request.path.push(namespace).push(collection)
 
-        if document:
+        if has_document:
             request.body(document=document)
-        elif batch:
+        elif has_batch:
             request.body(batch=batch)
 
         return request.execute()

@@ -14,15 +14,17 @@ import os
 import sys
 sys.path.insert(0, os.path.abspath('..'))
 
+import synthpy
+
 
 # -- Project information -----------------------------------------------------
 
 project = 'Synth'
-copyright = '2020, GetSynth'
+copyright = '2020 - OpenQuery'
 author = 'GetSynth'
 
 # The full version, including alpha/beta/rc tags
-release = '0.1.0'
+release = synthpy.__version__
 
 
 # -- General configuration ---------------------------------------------------
@@ -59,7 +61,10 @@ html_theme_options = {
     "show_prev_next": True,
 }
 
-html_logo = 'images/synth_logo_resized.png'
+html_title = "Synth - NoSQL Synthetic Data Engine"
+
+html_logo = 'images/getsynth_identicon.png'
+html_favicon = 'images/getsynth_favicon.png'
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,

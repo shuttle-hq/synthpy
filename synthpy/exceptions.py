@@ -31,7 +31,10 @@ class TransportError(SynthException):
         Exception.__init__(self)
 
     def __str__(self):
-        return ": ".join(self.msg)
+        if self.msg:
+            return ": ".join(self.msg)
+        else:
+            return "an unspecified error occured: this is usually due to a programming error in the client or the daemon."
 
 
 class BadRequest(TransportError):

@@ -1,10 +1,9 @@
 {
-  pkgs ? import <nixpkgs> {}
-, python ? pkgs.python38
+  python
 }:
 python.pkgs.buildPythonPackage {
   name = "synthpy";
-  version = "0.1.0";
+  version = "0.2.1";
 
   src = ./.;
 
@@ -15,7 +14,12 @@ python.pkgs.buildPythonPackage {
   ];
 
   propagatedBuildInputs = with python.pkgs; [
-    aiohttp
+    setuptools
+    click
     yarl
+    colored
+    coloredlogs
+    aiohttp
+    ipython
   ];
 }
