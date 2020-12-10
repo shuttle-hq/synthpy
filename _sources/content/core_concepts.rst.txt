@@ -1,8 +1,9 @@
+.. _Postman: https://documenter.getpostman.com/view/8887939/TVmS9GDG
 .. _core_concepts:
 
 Core Concepts
 =============
-This page is WIP! In the meantime, you can use our Postman documentation.
+This page is WIP! In the meantime, you can use our `Postman`_ documentation.
 
 What is ``synthd``?
 ~~~~~~~~~~~~~~~~~~~
