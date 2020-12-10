@@ -3,7 +3,10 @@
 
 Core Concepts
 =============
-This page is WIP! In the meantime, you can use our `Postman`_ documentation.
+
+.. warning::
+
+   This page is WIP! In the meantime, you can use our `Postman`_ documentation.
 
 What is ``synthd``?
 ~~~~~~~~~~~~~~~~~~~
