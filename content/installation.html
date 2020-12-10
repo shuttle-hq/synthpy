@@ -248,6 +248,12 @@ setup, you might have to also setup firewall rules or ssh
 port-forwarding in order to let the client on your local machine
 access the daemon. By default, the daemon listens to HTTP requests
 on <code class="docutils literal notranslate"><span class="pre">0.0.0.0:8182</span></code>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you wish to use the guest tools’s <a class="reference external" href="https://cloud.google.com/compute/docs/images/install-guest-environment">OS Login</a>
+feature, you must create the instance with the additional metadata
+<code class="docutils literal notranslate"><span class="pre">enable-oslogin=TRUE</span></code>.</p>
+</div>
 <p>Alternatively, you can deploy the image using <code class="docutils literal notranslate"><span class="pre">Cloud</span> <span class="pre">SDK</span></code> from the
 command-line by running:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ gcloud compute instances create <span class="se">\</span>
@@ -258,6 +264,7 @@ command-line by running:</p>
       --image-project getsynth <span class="se">\</span>
       --image synth-enterprise-<span class="si">${</span><span class="nv">REV</span><span class="si">}</span>-<span class="si">${</span><span class="nv">VERSION</span><span class="si">}</span> <span class="se">\</span>
       --zone europe-west2-b <span class="se">\</span>
+      --metadata<span class="o">=</span>enable-oslogin<span class="o">=</span>TRUE <span class="se">\</span>
       synth-enterprise-master
 </pre></div>
 </div>

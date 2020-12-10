@@ -99,6 +99,13 @@ port-forwarding in order to let the client on your local machine
 access the daemon. By default, the daemon listens to HTTP requests
 on ``0.0.0.0:8182``.
 
+.. note::
+
+   If you wish to use the guest tools's `OS Login
+   <https://cloud.google.com/compute/docs/images/install-guest-environment>`_
+   feature, you must create the instance with the additional metadata
+   ``enable-oslogin=TRUE``.
+
 Alternatively, you can deploy the image using ``Cloud SDK`` from the
 command-line by running:
 
@@ -112,5 +119,6 @@ command-line by running:
          --image-project getsynth \
          --image synth-enterprise-${REV}-${VERSION} \
          --zone europe-west2-b \
+	 --metadata=enable-oslogin=TRUE \
 	 synth-enterprise-master
 
