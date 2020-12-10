@@ -182,7 +182,9 @@
 <span class="sd">                the specified field.</span>
 <span class="sd">            depth (unsigned int, optional): until what depth is the</span>
 <span class="sd">                override merging with the existing model. If not</span>
-<span class="sd">                specified, the override is a merge at all depths.</span>
+<span class="sd">                specified, the override is a merge at all depths. If</span>
+<span class="sd">                set to `0`, the operation will replace the schema</span>
+<span class="sd">                entry at `field` with the given `override`.</span>
 <span class="sd">            namespace (str, optional): Can be omitted if previously</span>
 <span class="sd">                set when initializing the client.</span>
 <span class="sd">        &quot;&quot;&quot;</span>

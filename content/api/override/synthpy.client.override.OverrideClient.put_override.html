@@ -227,7 +227,9 @@ override.</p></li>
 the specified field.</p></li>
 <li><p><strong>depth</strong> (<em>unsigned int</em><em>, </em><em>optional</em>) – until what depth is the
 override merging with the existing model. If not
-specified, the override is a merge at all depths.</p></li>
+specified, the override is a merge at all depths. If
+set to <cite>0</cite>, the operation will replace the schema
+entry at <cite>field</cite> with the given <cite>override</cite>.</p></li>
 <li><p><strong>namespace</strong> (<em>str</em><em>, </em><em>optional</em>) – Can be omitted if previously
 set when initializing the client.</p></li>
 </ul>
