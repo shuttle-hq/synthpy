@@ -1,0 +1,29 @@
+﻿synthpy.client.ingest.IngestClient
+==================================
+
+.. currentmodule:: synthpy.client.ingest
+
+.. autoclass:: IngestClient
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~IngestClient.__init__
+      ~IngestClient.put_documents
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+   
+      ~IngestClient.transport
+   
+   

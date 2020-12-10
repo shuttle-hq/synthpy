@@ -1,0 +1,25 @@
+﻿synthpy.client.Transport
+========================
+
+.. currentmodule:: synthpy.client
+
+.. autoclass:: Transport
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~Transport.__init__
+      ~Transport.execute
+      ~Transport.get_default
+      ~Transport.request
+   
+   
+
+   
+   
+   

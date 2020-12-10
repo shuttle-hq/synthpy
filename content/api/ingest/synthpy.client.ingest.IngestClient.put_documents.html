@@ -1,0 +1,257 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>synthpy.client.ingest.IngestClient.put_documents &#8212; Synth - NoSQL Synthetic Data Engine</title>
+    
+  <link rel="stylesheet" href="../../../_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
+
+    
+  <link rel="stylesheet"
+    href="../../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+  <link rel="stylesheet"
+    href="../../../_static/vendor/open-sans_all/1.44.1/index.css">
+  <link rel="stylesheet"
+    href="../../../_static/vendor/lato_latin-ext/1.44.1/index.css">
+
+    
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/basic.css" type="text/css" />
+    
+  <link rel="preload" as="script" href="../../../_static/js/index.3da636dd464baa7582d2.js">
+
+    <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/language_data.js"></script>
+    <link rel="shortcut icon" href="../../../_static/getsynth_favicon.png"/>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Generate API" href="../../generate.html" />
+    <link rel="prev" title="synthpy.client.ingest.IngestClient" href="synthpy.client.ingest.IngestClient.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main">
+<div class="container-xl">
+
+    <a class="navbar-brand" href="../../../index.html">
+    
+      <img src="../../../_static/getsynth_identicon.png" class="logo" alt="logo" />
+    
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-menu" aria-controls="navbar-menu" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div id="navbar-menu" class="col-lg-9 collapse navbar-collapse">
+      <ul id="navbar-main-elements" class="navbar-nav mr-auto">
+        
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../../../index.html">What is this?</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../../installation.html">Installation</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../../getting_started.html">synthpy</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../../core_concepts.html">Core Concepts</a>
+        </li>
+        
+        <li class="nav-item active">
+            <a class="nav-link" href="../../api.html">API Reference</a>
+        </li>
+        
+        
+      </ul>
+
+
+      
+
+      <ul class="navbar-nav">
+        
+        
+      </ul>
+    </div>
+</div>
+    </nav>
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+          <div class="col-12 col-md-3 bd-sidebar"><form class="bd-search d-flex align-items-center" action="../../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form>
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+
+    <div class="bd-toc-item active">
+    
+  
+    <ul class="nav bd-sidenav">
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+          
+            
+                <li class="">
+                    <a href="../../client.html">The Synth Client</a>
+                </li>
+            
+          
+            
+                <li class="">
+                    <a href="../../model.html">Data Model API</a>
+                </li>
+            
+          
+            
+  
+                <li class="active">
+                    <a href="../../ingest.html">Ingest API</a>
+                    <ul>
+                    
+                        <li class="">
+                            <a href="synthpy.client.ingest.IngestClient.html">synthpy.client.ingest.IngestClient</a>
+                        </li>
+                    
+                        <li class="active">
+                            <a href="">synthpy.client.ingest.IngestClient.put_documents</a>
+                        </li>
+                    
+                    </ul>
+                </li>
+            
+          
+            
+                <li class="">
+                    <a href="../../generate.html">Generate API</a>
+                </li>
+            
+          
+            
+                <li class="">
+                    <a href="../../namespace.html">Namespace API</a>
+                </li>
+            
+          
+            
+                <li class="">
+                    <a href="../../override.html">Override API</a>
+                </li>
+            
+          
+        
+        
+      </ul>
+  
+  </nav>
+          </div>
+          
+
+          
+          <div class="d-none d-xl-block col-xl-2 bd-toc">
+              
+
+<nav id="bd-toc-nav">
+    <ul class="nav section-nav flex-column">
+    
+    </ul>
+</nav>
+
+
+              
+          </div>
+          
+
+          
+          <main class="col-12 col-md-9 col-xl-7 py-md-5 pl-md-5 pr-md-4 bd-content" role="main">
+              
+              <div>
+                
+  <div class="section" id="synthpy-client-ingest-ingestclient-put-documents">
+<h1>synthpy.client.ingest.IngestClient.put_documents<a class="headerlink" href="#synthpy-client-ingest-ingestclient-put-documents" title="Permalink to this headline">¶</a></h1>
+<dl class="py method">
+<dt id="synthpy.client.ingest.IngestClient.put_documents">
+<code class="sig-prename descclassname">IngestClient.</code><code class="sig-name descname">put_documents</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#synthpy.client.ingest.IngestClient.put_documents" title="Permalink to this definition">¶</a></dt>
+<dd><p>Ingest one or more documents.</p>
+<p>This supports both individual and batch document ingestion. In
+general, batch is favored as it results in fewer individual
+API requests and allows <code class="docutils literal notranslate"><span class="pre">synthd</span></code> to optimize its internal
+updating of the collection’s model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>namespace</strong> (<em>str</em>) – The name of the namespace we should ingest the document(s) to.</p></li>
+<li><p><strong>collection</strong> (<em>str</em>) – The name of the collection we should ingest the document(s) to.</p></li>
+<li><p><strong>document</strong> (<em>dict</em><em>, </em><em>optional</em>) – The document we should ingest in the collection. This uses the API in individual ingestion mode.</p></li>
+<li><p><strong>batch</strong> (<em>Iterable</em><em>[</em><em>dict</em><em>]</em><em>, </em><em>optional</em>) – An iterable of documents we should ingest in the collection. This uses the API in batch mode.</p></li>
+</ul>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Exactly one of <code class="docutils literal notranslate"><span class="pre">document</span></code> or <code class="docutils literal notranslate"><span class="pre">batch</span></code> must be set.</p>
+</div>
+</dd></dl>
+
+</div>
+
+
+              </div>
+              
+              
+              <div class='prev-next-bottom'>
+                
+    <a class='left-prev' id="prev-link" href="synthpy.client.ingest.IngestClient.html" title="previous page">synthpy.client.ingest.IngestClient</a>
+    <a class='right-next' id="next-link" href="../../generate.html" title="next page">Generate API</a>
+
+              </div>
+              
+          </main>
+          
+
+      </div>
+    </div>
+
+    
+  <script src="../../../_static/js/index.3da636dd464baa7582d2.js"></script>
+
+
+    <footer class="footer mt-5 mt-md-0">
+  <div class="container">
+    <p>
+          &copy; Copyright 2020 - OpenQuery.<br/>
+        Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.3.1.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

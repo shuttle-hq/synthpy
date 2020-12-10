@@ -1,0 +1,6 @@
+﻿synthpy.client.override.OverrideClient.set\_optional
+====================================================
+
+.. currentmodule:: synthpy.client.override
+
+.. automethod:: OverrideClient.set_optional

@@ -1,0 +1,297 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Installation &#8212; Synth - NoSQL Synthetic Data Engine</title>
+    
+  <link rel="stylesheet" href="../_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+  <link rel="stylesheet"
+    href="../_static/vendor/open-sans_all/1.44.1/index.css">
+  <link rel="stylesheet"
+    href="../_static/vendor/lato_latin-ext/1.44.1/index.css">
+
+    
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
+    
+  <link rel="preload" as="script" href="../_static/js/index.3da636dd464baa7582d2.js">
+
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <link rel="shortcut icon" href="../_static/getsynth_favicon.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="synthpy" href="getting_started.html" />
+    <link rel="prev" title="What is this?" href="../index.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main">
+<div class="container-xl">
+
+    <a class="navbar-brand" href="../index.html">
+    
+      <img src="../_static/getsynth_identicon.png" class="logo" alt="logo" />
+    
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-menu" aria-controls="navbar-menu" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div id="navbar-menu" class="col-lg-9 collapse navbar-collapse">
+      <ul id="navbar-main-elements" class="navbar-nav mr-auto">
+        
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../index.html">What is this?</a>
+        </li>
+        
+        <li class="nav-item active">
+            <a class="nav-link" href="">Installation</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="getting_started.html">synthpy</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="core_concepts.html">Core Concepts</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="api.html">API Reference</a>
+        </li>
+        
+        
+      </ul>
+
+
+      
+
+      <ul class="navbar-nav">
+        
+        
+      </ul>
+    </div>
+</div>
+    </nav>
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+          <div class="col-12 col-md-3 bd-sidebar"><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form>
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+
+    <div class="bd-toc-item active">
+    
+  
+    <ul class="nav bd-sidenav">
+        
+        
+        
+        
+          
+        
+        
+        
+        
+        
+        
+        
+        
+      </ul>
+  
+  </nav>
+          </div>
+          
+
+          
+          <div class="d-none d-xl-block col-xl-2 bd-toc">
+              
+<div class="tocsection onthispage pt-5 pb-3">
+    <i class="fas fa-list"></i> On this page
+</div>
+
+<nav id="bd-toc-nav">
+    <ul class="nav section-nav flex-column">
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#requirements" class="nav-link">Requirements</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#first-step" class="nav-link">First step</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#standalone" class="nav-link">Standalone</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#deploying-from-vm-images" class="nav-link">Deploying from VM images</a>
+        </li>
+    
+    </ul>
+</nav>
+
+
+              
+          </div>
+          
+
+          
+          <main class="col-12 col-md-9 col-xl-7 py-md-5 pl-md-5 pr-md-4 bd-content" role="main">
+              
+              <div>
+                
+  <div class="section" id="synthd">
+<span id="installation"></span><span id="id1"></span><h1>Installation<a class="headerlink" href="#synthd" title="Permalink to this headline">¶</a></h1>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>To keep going, you will need to request IAM access to our release
+GCP project. If you are not already a customer and would like to
+see <code class="docutils literal notranslate"><span class="pre">Synth</span></code> in action, <a class="reference external" href="https://www.getsynth.com/contact">let us know!</a></p>
+</div>
+<div class="section" id="requirements">
+<h2>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h2>
+<p>To follow along with this guide, you’ll have to have a valid <a class="reference external" href="https://cloud.google.com/">GCP</a> account for you or your organization and
+have the <a class="reference external" href="https://cloud.google.com/sdk">Cloud SDK</a> installed and
+logged in on your machine. Depending on what installation track you
+elect to follow, you will also need various IAM permissions to be
+granted against our release GCP project.</p>
+</div>
+<div class="section" id="first-step">
+<h2>First step<a class="headerlink" href="#first-step" title="Permalink to this headline">¶</a></h2>
+<p>First we need to setup <a class="reference internal" href="#synthd"><span class="std std-ref">synthd</span></a>. We have a couple
+options:</p>
+<ol class="arabic simple">
+<li><p>Run it <strong>standalone</strong> from a bundled executable that ships all the
+runtime and libraries that <a class="reference internal" href="#synthd"><span class="std std-ref">synthd</span></a> uses. This is a
+good quick solution to get hacking locally but is less stable and
+does not have as good performance owing to its overheads.</p></li>
+<li><p>Deploy our line-up of <strong>custom VM images</strong>. This is the preferred
+solution for use in production. Especially when working in an
+organization or any setup in which <a class="reference internal" href="#synthd"><span class="std std-ref">synthd</span></a> will be
+used by more than one user or on heavy datasets.</p></li>
+</ol>
+</div>
+<div class="section" id="standalone">
+<h2>Standalone<a class="headerlink" href="#standalone" title="Permalink to this headline">¶</a></h2>
+<p>In standalone mode, you just need to drag and drop a single executable
+binary in your environment. The binary includes an archive of all the
+runtime and dependencies <a class="reference internal" href="#synthd"><span class="std std-ref">synthd</span></a> requires. This adds an
+overhead and can significantly impact <a class="reference internal" href="#synthd"><span class="std std-ref">synthd</span></a>’s
+performance, especially on start up.</p>
+<p>The acquire the package, assuming you have been added to the relevant
+<a class="reference external" href="https://cloud.google.com/storage/docs/access-control/iam-permissions">IAM permissions set</a>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ gsutil cp gs://getsynth-enterprise/standalone/x86_64-linux/latest synthd
+$ chmod +x synthd
+$ ./synthd
+</pre></div>
+</div>
+<p>We currently only have automated builds for <code class="docutils literal notranslate"><span class="pre">Linux</span> <span class="pre">x86_64</span></code>. If
+you need more OS/architecture configurations, let us know!</p>
+</div>
+<div class="section" id="deploying-from-vm-images">
+<h2>Deploying from VM images<a class="headerlink" href="#deploying-from-vm-images" title="Permalink to this headline">¶</a></h2>
+<p>We maintain automated builds of <a class="reference external" href="https://cloud.google.com/compute/docs/images/create-delete-deprecate-private-images">custom VM images</a>
+that can be used to provision VM instances running pre-configured
+<a class="reference internal" href="#synthd"><span class="std std-ref">synthd</span></a>.</p>
+<p>We recommend to get started with deploying a <code class="docutils literal notranslate"><span class="pre">n2-standard-4</span></code>
+<a class="reference external" href="https://cloud.google.com/compute/docs/machine-types">instance type</a>
+as a fair trade off between performance and cost for most starting use
+cases. This can be changed later on if your needs turn out to be less
+or more than expected. In addition, we recommend deploying the image
+with at least <code class="docutils literal notranslate"><span class="pre">200GiB</span></code> of SSD persistent disk space and
+<strong>disabling</strong> the <cite>Delete boot disk when instance is deleted</cite> option
+to avoid losing trained data models.</p>
+<p>To get started with custom images: follow the instructions <a class="reference external" href="https://cloud.google.com/compute/docs/images">here</a> to make sure you
+indeed have access to them. You will find them under the <code class="docutils literal notranslate"><span class="pre">getsynth</span></code>
+GCP project.</p>
+<p>Atlernatively, from the console, run</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ gcloud compute images list
+</pre></div>
+</div>
+<p>Our image names follow a standard convention:
+<code class="docutils literal notranslate"><span class="pre">synth-enterprise-${REV}-v${VERSION}</span></code>, where <code class="docutils literal notranslate"><span class="pre">${REV}</span></code> is the
+originating <code class="docutils literal notranslate"><span class="pre">git</span></code> commit hash of the build and <code class="docutils literal notranslate"><span class="pre">${VERSION}</span></code> is the
+day of the build encoded as <code class="docutils literal notranslate"><span class="pre">&quot;%Y%m%d&quot;</span></code>. When deploying, it is
+generally recommended to pick the latest build unless we have advised
+you explictly otherwise.</p>
+<p>Once you have established you have access to the images, follow the
+instructions <a class="reference external" href="https://cloud.google.com/compute/docs/disks/create-root-persistent-disks#creatingrootpdalone">here</a>
+to have them deployed in your VM infrastructure. Depending on your
+setup, you might have to also setup firewall rules or ssh
+port-forwarding in order to let the client on your local machine
+access the daemon. By default, the daemon listens to HTTP requests
+on <code class="docutils literal notranslate"><span class="pre">0.0.0.0:8182</span></code>.</p>
+<p>Alternatively, you can deploy the image using <code class="docutils literal notranslate"><span class="pre">Cloud</span> <span class="pre">SDK</span></code> from the
+command-line by running:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ gcloud compute instances create <span class="se">\</span>
+      --no-boot-disk-auto-delete <span class="se">\</span>
+      --boot-disk-size 200GiB <span class="se">\</span>
+      --boot-disk-type<span class="o">=</span>pd-ssd <span class="se">\</span>
+      --machine-type n2-standard-4 <span class="se">\</span>
+      --image-project getsynth <span class="se">\</span>
+      --image synth-enterprise-<span class="si">${</span><span class="nv">REV</span><span class="si">}</span>-<span class="si">${</span><span class="nv">VERSION</span><span class="si">}</span> <span class="se">\</span>
+      --zone europe-west2-b <span class="se">\</span>
+      synth-enterprise-master
+</pre></div>
+</div>
+</div>
+</div>
+
+
+              </div>
+              
+              
+              <div class='prev-next-bottom'>
+                
+    <a class='left-prev' id="prev-link" href="../index.html" title="previous page">What is this?</a>
+    <a class='right-next' id="next-link" href="getting_started.html" title="next page"><code class="docutils literal notranslate"><span class="pre">synthpy</span></code></a>
+
+              </div>
+              
+          </main>
+          
+
+      </div>
+    </div>
+
+    
+  <script src="../_static/js/index.3da636dd464baa7582d2.js"></script>
+
+
+    <footer class="footer mt-5 mt-md-0">
+  <div class="container">
+    <p>
+          &copy; Copyright 2020 - OpenQuery.<br/>
+        Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.3.1.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

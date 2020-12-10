@@ -1,0 +1,33 @@
+﻿synthpy.model.Number
+====================
+
+.. currentmodule:: synthpy.model
+
+.. autoclass:: Number
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~Number.__init__
+      ~Number.categorical
+      ~Number.constant
+      ~Number.range
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+   
+      ~Number.optional
+      ~Number.type
+      ~Number.weight
+   
+   

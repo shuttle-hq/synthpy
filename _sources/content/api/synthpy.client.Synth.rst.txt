@@ -1,0 +1,22 @@
+﻿synthpy.client.Synth
+====================
+
+.. currentmodule:: synthpy.client
+
+.. autoclass:: Synth
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~Synth.__init__
+   
+   
+
+   
+   
+   

@@ -1,0 +1,33 @@
+﻿synthpy.model.Bool
+==================
+
+.. currentmodule:: synthpy.model
+
+.. autoclass:: Bool
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~Bool.__init__
+      ~Bool.categorical
+      ~Bool.constant
+      ~Bool.frequency
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+   
+      ~Bool.optional
+      ~Bool.type
+      ~Bool.weight
+   
+   

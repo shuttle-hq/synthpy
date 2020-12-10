@@ -1,0 +1,33 @@
+﻿synthpy.client.namespace.NamespaceClient
+========================================
+
+.. currentmodule:: synthpy.client.namespace
+
+.. autoclass:: NamespaceClient
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~NamespaceClient.__init__
+      ~NamespaceClient.delete_collection
+      ~NamespaceClient.delete_namespace
+      ~NamespaceClient.get_namespaces
+      ~NamespaceClient.get_schema
+      ~NamespaceClient.rollback_namespace
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+   
+      ~NamespaceClient.transport
+   
+   

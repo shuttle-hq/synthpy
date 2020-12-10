@@ -1,0 +1,6 @@
+﻿synthpy.client.namespace.NamespaceClient.get\_namespaces
+========================================================
+
+.. currentmodule:: synthpy.client.namespace
+
+.. automethod:: NamespaceClient.get_namespaces

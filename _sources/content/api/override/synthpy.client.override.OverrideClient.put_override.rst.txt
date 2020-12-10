@@ -1,0 +1,6 @@
+﻿synthpy.client.override.OverrideClient.put\_override
+====================================================
+
+.. currentmodule:: synthpy.client.override
+
+.. automethod:: OverrideClient.put_override

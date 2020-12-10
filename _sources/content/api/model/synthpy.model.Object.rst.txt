@@ -1,0 +1,30 @@
+﻿synthpy.model.Object
+====================
+
+.. currentmodule:: synthpy.model
+
+.. autoclass:: Object
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~Object.__init__
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+   
+      ~Object.optional
+      ~Object.type
+      ~Object.weight
+   
+   

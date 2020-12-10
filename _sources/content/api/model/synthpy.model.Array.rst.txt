@@ -1,0 +1,30 @@
+﻿synthpy.model.Array
+===================
+
+.. currentmodule:: synthpy.model
+
+.. autoclass:: Array
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~Array.__init__
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+   
+      ~Array.optional
+      ~Array.type
+      ~Array.weight
+   
+   

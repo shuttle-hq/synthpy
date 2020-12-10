@@ -1,0 +1,30 @@
+﻿synthpy.model.OneOf
+===================
+
+.. currentmodule:: synthpy.model
+
+.. autoclass:: OneOf
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~OneOf.__init__
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+   
+      ~OneOf.optional
+      ~OneOf.type
+      ~OneOf.weight
+   
+   

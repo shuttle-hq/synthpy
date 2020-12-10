@@ -1,0 +1,6 @@
+﻿synthpy.client.namespace.NamespaceClient.rollback\_namespace
+============================================================
+
+.. currentmodule:: synthpy.client.namespace
+
+.. automethod:: NamespaceClient.rollback_namespace

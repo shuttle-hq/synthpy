@@ -1,0 +1,30 @@
+﻿synthpy.model.SameAs
+====================
+
+.. currentmodule:: synthpy.model
+
+.. autoclass:: SameAs
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~SameAs.__init__
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+   
+      ~SameAs.optional
+      ~SameAs.type
+      ~SameAs.weight
+   
+   

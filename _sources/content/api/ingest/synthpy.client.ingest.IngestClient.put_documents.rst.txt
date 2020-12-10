@@ -1,0 +1,6 @@
+﻿synthpy.client.ingest.IngestClient.put\_documents
+=================================================
+
+.. currentmodule:: synthpy.client.ingest
+
+.. automethod:: IngestClient.put_documents

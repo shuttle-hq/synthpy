@@ -1,0 +1,30 @@
+﻿synthpy.model.Faker
+===================
+
+.. currentmodule:: synthpy.model
+
+.. autoclass:: Faker
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~Faker.__init__
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+   
+      ~Faker.optional
+      ~Faker.type
+      ~Faker.weight
+   
+   

@@ -1,0 +1,6 @@
+﻿synthpy.client.namespace.NamespaceClient.get\_schema
+====================================================
+
+.. currentmodule:: synthpy.client.namespace
+
+.. automethod:: NamespaceClient.get_schema

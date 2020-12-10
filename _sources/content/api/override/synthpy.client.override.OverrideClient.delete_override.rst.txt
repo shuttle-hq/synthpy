@@ -1,0 +1,6 @@
+﻿synthpy.client.override.OverrideClient.delete\_override
+=======================================================
+
+.. currentmodule:: synthpy.client.override
+
+.. automethod:: OverrideClient.delete_override

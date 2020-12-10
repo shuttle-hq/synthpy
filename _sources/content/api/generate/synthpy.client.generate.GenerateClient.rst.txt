@@ -1,0 +1,29 @@
+﻿synthpy.client.generate.GenerateClient
+======================================
+
+.. currentmodule:: synthpy.client.generate
+
+.. autoclass:: GenerateClient
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~GenerateClient.__init__
+      ~GenerateClient.get_documents
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+   
+      ~GenerateClient.transport
+   
+   

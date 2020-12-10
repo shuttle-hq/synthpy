@@ -1,0 +1,6 @@
+﻿synthpy.client.namespace.NamespaceClient.delete\_collection
+===========================================================
+
+.. currentmodule:: synthpy.client.namespace
+
+.. automethod:: NamespaceClient.delete_collection

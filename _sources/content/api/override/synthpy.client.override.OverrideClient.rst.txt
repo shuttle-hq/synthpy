@@ -1,0 +1,33 @@
+﻿synthpy.client.override.OverrideClient
+======================================
+
+.. currentmodule:: synthpy.client.override
+
+.. autoclass:: OverrideClient
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~OverrideClient.__init__
+      ~OverrideClient.delete_override
+      ~OverrideClient.optionalise
+      ~OverrideClient.put_override
+      ~OverrideClient.set_optional
+      ~OverrideClient.unoptionalise
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+   
+      ~OverrideClient.transport
+   
+   

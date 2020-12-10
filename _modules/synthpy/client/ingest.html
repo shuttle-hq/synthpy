@@ -1,0 +1,241 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>synthpy.client.ingest &#8212; Synth - NoSQL Synthetic Data Engine</title>
+    
+  <link rel="stylesheet" href="../../../_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
+
+    
+  <link rel="stylesheet"
+    href="../../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+  <link rel="stylesheet"
+    href="../../../_static/vendor/open-sans_all/1.44.1/index.css">
+  <link rel="stylesheet"
+    href="../../../_static/vendor/lato_latin-ext/1.44.1/index.css">
+
+    
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/basic.css" type="text/css" />
+    
+  <link rel="preload" as="script" href="../../../_static/js/index.3da636dd464baa7582d2.js">
+
+    <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/language_data.js"></script>
+    <link rel="shortcut icon" href="../../../_static/getsynth_favicon.png"/>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main">
+<div class="container-xl">
+
+    <a class="navbar-brand" href="../../../index.html">
+    
+      <img src="../../../_static/getsynth_identicon.png" class="logo" alt="logo" />
+    
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-menu" aria-controls="navbar-menu" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div id="navbar-menu" class="col-lg-9 collapse navbar-collapse">
+      <ul id="navbar-main-elements" class="navbar-nav mr-auto">
+        
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../../../index.html">What is this?</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../../../content/installation.html">Installation</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../../../content/getting_started.html">synthpy</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../../../content/core_concepts.html">Core Concepts</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../../../content/api.html">API Reference</a>
+        </li>
+        
+        
+      </ul>
+
+
+      
+
+      <ul class="navbar-nav">
+        
+        
+      </ul>
+    </div>
+</div>
+    </nav>
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+          <div class="col-12 col-md-3 bd-sidebar"><form class="bd-search d-flex align-items-center" action="../../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form>
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+
+    <div class="bd-toc-item active">
+    
+  
+    <ul class="nav bd-sidenav">
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+      </ul>
+  
+  </nav>
+          </div>
+          
+
+          
+          <div class="d-none d-xl-block col-xl-2 bd-toc">
+              
+
+<nav id="bd-toc-nav">
+    <ul class="nav section-nav flex-column">
+    
+    </ul>
+</nav>
+
+
+              
+          </div>
+          
+
+          
+          <main class="col-12 col-md-9 col-xl-7 py-md-5 pl-md-5 pr-md-4 bd-content" role="main">
+              
+              <div>
+                
+  <h1>Source code for synthpy.client.ingest</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">.transport</span> <span class="kn">import</span> <span class="n">Method</span>
+<span class="kn">from</span> <span class="nn">.utils</span> <span class="kn">import</span> <span class="n">NamespacedClient</span><span class="p">,</span> <span class="n">scoped</span>
+<span class="kn">from</span> <span class="nn">..exceptions</span> <span class="kn">import</span> <span class="n">ImproperlyConfigured</span>
+
+
+<div class="viewcode-block" id="IngestClient"><a class="viewcode-back" href="../../../content/api/ingest/synthpy.client.ingest.IngestClient.html#synthpy.client.ingest.IngestClient">[docs]</a><span class="k">class</span> <span class="nc">IngestClient</span><span class="p">(</span><span class="n">NamespacedClient</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Base class for the Ingest API.</span>
+
+<span class="sd">    .. note::</span>
+<span class="sd">        Do not construct this class directly. Access it from the root</span>
+<span class="sd">        :class:`.Synth` client instead.</span>
+
+<span class="sd">    Example:</span>
+<span class="sd">        .. code-block:: python</span>
+
+<span class="sd">           &gt;&gt;&gt; from synthpy import Synth</span>
+<span class="sd">           &gt;&gt;&gt; client = Synth()</span>
+<span class="sd">           &gt;&gt;&gt; client.put_documents(namespace=&quot;my_namespace&quot;, collection=&quot;my_collection&quot;, document={&quot;yes?&quot;: True})</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="nd">@scoped</span><span class="p">(</span><span class="s2">&quot;namespace&quot;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">put_documents</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">collection</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">document</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">batch</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">namespace</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Ingest one or more documents.</span>
+
+<span class="sd">        This supports both individual and batch document ingestion. In</span>
+<span class="sd">        general, batch is favored as it results in fewer individual</span>
+<span class="sd">        API requests and allows ``synthd`` to optimize its internal</span>
+<span class="sd">        updating of the collection&#39;s model.</span>
+
+<span class="sd">        :param namespace: The name of the namespace we should ingest the document(s) to.</span>
+<span class="sd">        :type namespace: str</span>
+
+<span class="sd">        :param collection: The name of the collection we should ingest the document(s) to.</span>
+<span class="sd">        :type collection: str</span>
+
+<span class="sd">        :param document: The document we should ingest in the collection. This uses the API in individual ingestion mode.</span>
+<span class="sd">        :type document: dict, optional</span>
+
+<span class="sd">        :param batch: An iterable of documents we should ingest in the collection. This uses the API in batch mode.</span>
+<span class="sd">        :type batch: Iterable[dict], optional</span>
+
+<span class="sd">        .. note::</span>
+<span class="sd">           Exactly one of ``document`` or ``batch`` must be set.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">has_document</span> <span class="o">=</span> <span class="n">document</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+        <span class="n">has_batch</span> <span class="o">=</span> <span class="n">batch</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="n">has_document</span> <span class="ow">and</span> <span class="n">has_batch</span> <span class="ow">or</span> <span class="p">(</span><span class="ow">not</span> <span class="n">has_document</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">has_batch</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="n">ImproperlyConfigured</span><span class="p">(</span><span class="s2">&quot;batch, document&quot;</span><span class="p">,</span> <span class="s2">&quot;exactly one of &#39;document&#39; or &#39;batch&#39; must be set&quot;</span><span class="p">)</span>
+
+        <span class="n">request</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="n">Method</span><span class="o">.</span><span class="n">PUT</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">namespace</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">collection</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">ImproperlyConfigured</span><span class="p">(</span><span class="s2">&quot;namespace, collection&quot;</span><span class="p">,</span> <span class="s2">&quot;&#39;namespace&#39; and &#39;collection&#39; are required arguments&quot;</span><span class="p">)</span>
+
+        <span class="n">request</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">push</span><span class="p">(</span><span class="n">namespace</span><span class="p">)</span><span class="o">.</span><span class="n">push</span><span class="p">(</span><span class="n">collection</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">has_document</span><span class="p">:</span>
+            <span class="n">request</span><span class="o">.</span><span class="n">body</span><span class="p">(</span><span class="n">document</span><span class="o">=</span><span class="n">document</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">has_batch</span><span class="p">:</span>
+            <span class="n">request</span><span class="o">.</span><span class="n">body</span><span class="p">(</span><span class="n">batch</span><span class="o">=</span><span class="n">batch</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">request</span><span class="o">.</span><span class="n">execute</span><span class="p">()</span></div>
+</pre></div>
+
+              </div>
+              
+              
+              <div class='prev-next-bottom'>
+                
+
+              </div>
+              
+          </main>
+          
+
+      </div>
+    </div>
+
+    
+  <script src="../../../_static/js/index.3da636dd464baa7582d2.js"></script>
+
+
+    <footer class="footer mt-5 mt-md-0">
+  <div class="container">
+    <p>
+          &copy; Copyright 2020 - OpenQuery.<br/>
+        Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.3.1.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

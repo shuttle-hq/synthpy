@@ -1,0 +1,6 @@
+﻿synthpy.client.generate.GenerateClient.get\_documents
+=====================================================
+
+.. currentmodule:: synthpy.client.generate
+
+.. automethod:: GenerateClient.get_documents
