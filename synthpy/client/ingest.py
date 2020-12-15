@@ -19,7 +19,9 @@ class IngestClient(NamespacedClient):
     """
 
     @scoped("namespace")
-    def put_documents(self, collection=None, document=None, batch=None, namespace=None):
+    def put_documents(
+        self, collection=None, document=None, batch=None, hint=None, namespace=None
+    ):
         """Ingest one or more documents.
 
         This supports both individual and batch document ingestion. In
@@ -39,6 +41,9 @@ class IngestClient(NamespacedClient):
         :param batch: An iterable of documents we should ingest in the collection. This uses the API in batch mode.
         :type batch: Iterable[dict], optional
 
+        :param hint: Hint about the content of the ingest. If specified, must follow the same format as the `override` parameter of :meth:`put_override <synthpy.client.override.OverrideClient.put_override>`.
+        :type hint: dict, optional
+
         .. note::
            Exactly one of ``document`` or ``batch`` must be set.
 
@@ -47,18 +52,30 @@ class IngestClient(NamespacedClient):
         has_document = document is not None
         has_batch = batch is not None
         if has_document and has_batch or (not has_document and not has_batch):
-            raise ImproperlyConfigured("batch, document", "exactly one of 'document' or 'batch' must be set")
+            raise ImproperlyConfigured(
+                "batch, document", "exactly one of 'document' or 'batch' must be set"
+            )
 
         request = self.transport.request(Method.PUT)
 
         if not namespace or not collection:
-            raise ImproperlyConfigured("namespace, collection", "'namespace' and 'collection' are required arguments")
+            raise ImproperlyConfigured(
+                "namespace, collection",
+                "'namespace' and 'collection' are required arguments",
+            )
 
         request.path.push(namespace).push(collection)
 
+        kwargs = {}
+
         if has_document:
-            request.body(document=document)
+            kwargs.update({"document": document})
         elif has_batch:
-            request.body(batch=batch)
+            kwargs.update({"batch": batch})
+
+        if hint is not None:
+            kwargs.update({"hint": hint})
+
+        request.body(**kwargs)
 
         return request.execute()

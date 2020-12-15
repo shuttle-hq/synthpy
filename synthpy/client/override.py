@@ -52,7 +52,7 @@ class OverrideClient(NamespacedClient):
         else:
             raise ValueError("'override' must be either a 'dict' or a 'Model'")
 
-        override = canonicalize(override)
+        #override = canonicalize(override)
 
         logger.debug(f"override={override}")
 
