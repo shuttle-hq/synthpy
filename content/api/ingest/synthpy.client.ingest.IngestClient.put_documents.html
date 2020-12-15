@@ -213,6 +213,7 @@ updating of the collection’s model.</p>
 <li><p><strong>collection</strong> (<em>str</em>) – The name of the collection we should ingest the document(s) to.</p></li>
 <li><p><strong>document</strong> (<em>dict</em><em>, </em><em>optional</em>) – The document we should ingest in the collection. This uses the API in individual ingestion mode.</p></li>
 <li><p><strong>batch</strong> (<em>Iterable</em><em>[</em><em>dict</em><em>]</em><em>, </em><em>optional</em>) – An iterable of documents we should ingest in the collection. This uses the API in batch mode.</p></li>
+<li><p><strong>hint</strong> (<em>dict</em><em>, </em><em>optional</em>) – Hint about the content of the ingest. If specified, must follow the same format as the <cite>override</cite> parameter of <a class="reference internal" href="../override/synthpy.client.override.OverrideClient.put_override.html#synthpy.client.override.OverrideClient.put_override" title="synthpy.client.override.OverrideClient.put_override"><code class="xref py py-meth docutils literal notranslate"><span class="pre">put_override</span></code></a>.</p></li>
 </ul>
 </dd>
 </dl>

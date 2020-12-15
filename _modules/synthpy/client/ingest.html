@@ -166,7 +166,9 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="nd">@scoped</span><span class="p">(</span><span class="s2">&quot;namespace&quot;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">put_documents</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">collection</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">document</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">batch</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">namespace</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">put_documents</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">collection</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">document</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">batch</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">hint</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">namespace</span><span class="o">=</span><span class="kc">None</span>
+    <span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Ingest one or more documents.</span>
 
 <span class="sd">        This supports both individual and batch document ingestion. In</span>
@@ -186,6 +188,9 @@
 <span class="sd">        :param batch: An iterable of documents we should ingest in the collection. This uses the API in batch mode.</span>
 <span class="sd">        :type batch: Iterable[dict], optional</span>
 
+<span class="sd">        :param hint: Hint about the content of the ingest. If specified, must follow the same format as the `override` parameter of :meth:`put_override &lt;synthpy.client.override.OverrideClient.put_override&gt;`.</span>
+<span class="sd">        :type hint: dict, optional</span>
+
 <span class="sd">        .. note::</span>
 <span class="sd">           Exactly one of ``document`` or ``batch`` must be set.</span>
 
@@ -194,19 +199,31 @@
         <span class="n">has_document</span> <span class="o">=</span> <span class="n">document</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
         <span class="n">has_batch</span> <span class="o">=</span> <span class="n">batch</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
         <span class="k">if</span> <span class="n">has_document</span> <span class="ow">and</span> <span class="n">has_batch</span> <span class="ow">or</span> <span class="p">(</span><span class="ow">not</span> <span class="n">has_document</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">has_batch</span><span class="p">):</span>
-            <span class="k">raise</span> <span class="n">ImproperlyConfigured</span><span class="p">(</span><span class="s2">&quot;batch, document&quot;</span><span class="p">,</span> <span class="s2">&quot;exactly one of &#39;document&#39; or &#39;batch&#39; must be set&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="n">ImproperlyConfigured</span><span class="p">(</span>
+                <span class="s2">&quot;batch, document&quot;</span><span class="p">,</span> <span class="s2">&quot;exactly one of &#39;document&#39; or &#39;batch&#39; must be set&quot;</span>
+            <span class="p">)</span>
 
         <span class="n">request</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="n">Method</span><span class="o">.</span><span class="n">PUT</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="n">namespace</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">collection</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="n">ImproperlyConfigured</span><span class="p">(</span><span class="s2">&quot;namespace, collection&quot;</span><span class="p">,</span> <span class="s2">&quot;&#39;namespace&#39; and &#39;collection&#39; are required arguments&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="n">ImproperlyConfigured</span><span class="p">(</span>
+                <span class="s2">&quot;namespace, collection&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;&#39;namespace&#39; and &#39;collection&#39; are required arguments&quot;</span><span class="p">,</span>
+            <span class="p">)</span>
 
         <span class="n">request</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">push</span><span class="p">(</span><span class="n">namespace</span><span class="p">)</span><span class="o">.</span><span class="n">push</span><span class="p">(</span><span class="n">collection</span><span class="p">)</span>
 
+        <span class="n">kwargs</span> <span class="o">=</span> <span class="p">{}</span>
+
         <span class="k">if</span> <span class="n">has_document</span><span class="p">:</span>
-            <span class="n">request</span><span class="o">.</span><span class="n">body</span><span class="p">(</span><span class="n">document</span><span class="o">=</span><span class="n">document</span><span class="p">)</span>
+            <span class="n">kwargs</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s2">&quot;document&quot;</span><span class="p">:</span> <span class="n">document</span><span class="p">})</span>
         <span class="k">elif</span> <span class="n">has_batch</span><span class="p">:</span>
-            <span class="n">request</span><span class="o">.</span><span class="n">body</span><span class="p">(</span><span class="n">batch</span><span class="o">=</span><span class="n">batch</span><span class="p">)</span>
+            <span class="n">kwargs</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s2">&quot;batch&quot;</span><span class="p">:</span> <span class="n">batch</span><span class="p">})</span>
+
+        <span class="k">if</span> <span class="n">hint</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">kwargs</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s2">&quot;hint&quot;</span><span class="p">:</span> <span class="n">hint</span><span class="p">})</span>
+
+        <span class="n">request</span><span class="o">.</span><span class="n">body</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="n">request</span><span class="o">.</span><span class="n">execute</span><span class="p">()</span></div>
 </pre></div>
