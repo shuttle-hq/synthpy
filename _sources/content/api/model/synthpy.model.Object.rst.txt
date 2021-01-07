@@ -14,6 +14,7 @@
    .. autosummary::
    
       ~Object.__init__
+      ~Object.to_yaml
    
    
 
@@ -23,8 +24,6 @@
 
    .. autosummary::
    
-      ~Object.optional
-      ~Object.type
-      ~Object.weight
+      ~Object.yaml_tag
    
    

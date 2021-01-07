@@ -18,6 +18,7 @@
       ~String.date_time
       ~String.faker
       ~String.pattern
+      ~String.to_yaml
    
    
 
@@ -27,8 +28,6 @@
 
    .. autosummary::
    
-      ~String.optional
-      ~String.type
-      ~String.weight
+      ~String.yaml_tag
    
    

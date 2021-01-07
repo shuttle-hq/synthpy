@@ -14,17 +14,10 @@
    .. autosummary::
    
       ~Categorical.__init__
+      ~Categorical.to_yaml
    
    
 
    
-   
-   .. rubric:: Attributes
-
-   .. autosummary::
-   
-      ~Categorical.optional
-      ~Categorical.type
-      ~Categorical.weight
    
    

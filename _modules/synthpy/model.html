@@ -34,7 +34,6 @@
     <script src="../../_static/jquery.js"></script>
     <script src="../../_static/underscore.js"></script>
     <script src="../../_static/doctools.js"></script>
-    <script src="../../_static/language_data.js"></script>
     <link rel="shortcut icon" href="../../_static/getsynth_favicon.png"/>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -145,36 +144,42 @@
               <div>
                 
   <h1>Source code for synthpy.model</h1><div class="highlight"><pre>
-<span></span><span class="k">class</span> <span class="nc">Model</span><span class="p">:</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span></span><span class="kn">from</span> <span class="nn">ruamel.yaml</span> <span class="kn">import</span> <span class="n">YAML</span>
+<span class="kn">from</span> <span class="nn">io</span> <span class="kn">import</span> <span class="n">StringIO</span>
+
+
+<span class="k">class</span> <span class="nc">Model</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_kwargs</span> <span class="o">=</span> <span class="n">kwargs</span>
+
+        <span class="k">if</span> <span class="nb">type</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_type</span> <span class="o">=</span> <span class="nb">type</span>
 
     <span class="k">def</span> <span class="nf">_into_content</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span>
 
-    <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">type</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_kwargs</span><span class="p">[</span><span class="s2">&quot;type&quot;</span><span class="p">]</span>
-
-    <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">weight</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_kwargs</span><span class="p">[</span><span class="s2">&quot;weight&quot;</span><span class="p">]</span>
-
-    <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">optional</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_kwargs</span><span class="p">[</span><span class="s2">&quot;optional&quot;</span><span class="p">]</span>
-
     <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">idx</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_kwargs</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="fm">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">idx</span><span class="p">,</span> <span class="n">what</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_kwargs</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">what</span>
+
+    <span class="k">def</span> <span class="fm">__delitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">idx</span><span class="p">):</span>
+        <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">_kwargs</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
 
     <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="nb">iter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_kwargs</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_kwargs</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">YAMLSerializer</span><span class="p">()</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_repr_pretty_</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">cycle</span><span class="p">):</span>
-        <span class="n">p</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span>
+        <span class="n">as_yaml</span> <span class="o">=</span> <span class="n">YAMLSerializer</span><span class="p">()</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">p</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">as_yaml</span><span class="p">)</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">to_yaml</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">representer</span><span class="p">,</span> <span class="n">node</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">representer</span><span class="o">.</span><span class="n">represent_mapping</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">yaml_tag</span><span class="p">,</span> <span class="n">node</span><span class="o">.</span><span class="n">_kwargs</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_into_repr</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">out</span> <span class="o">=</span> <span class="p">{}</span>
@@ -190,9 +195,13 @@
                         <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
                             <span class="n">v_</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">element</span><span class="p">)</span>
                     <span class="n">v</span> <span class="o">=</span> <span class="n">v_</span>
-                    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;done&quot;</span><span class="p">)</span>
-
             <span class="n">out</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">out</span><span class="p">[</span><span class="s2">&quot;type&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_type</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="k">pass</span>
+
         <span class="k">return</span> <span class="n">out</span>
 
 
@@ -216,6 +225,38 @@
         <span class="k">return</span> <span class="s2">&quot;f64&quot;</span>
 
 
+<span class="k">class</span> <span class="nc">YAMLSerializer</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">yaml</span> <span class="o">=</span> <span class="n">YAML</span><span class="p">()</span>
+
+        <span class="k">for</span> <span class="bp">cls</span> <span class="ow">in</span> <span class="p">[</span>
+            <span class="n">Array</span><span class="p">,</span>
+            <span class="n">OneOf</span><span class="p">,</span>
+            <span class="n">SameAs</span><span class="p">,</span>
+            <span class="n">Object</span><span class="p">,</span>
+            <span class="n">Number</span><span class="p">,</span>
+            <span class="n">String</span><span class="p">,</span>
+            <span class="n">Bool</span><span class="p">,</span>
+            <span class="n">DateTime</span><span class="p">,</span>
+            <span class="n">Faker</span><span class="p">,</span>
+            <span class="n">Range</span><span class="p">,</span>
+        <span class="p">]:</span>
+            <span class="n">yaml</span><span class="o">.</span><span class="n">register_class</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_yaml</span> <span class="o">=</span> <span class="n">yaml</span>
+
+    <span class="k">def</span> <span class="nf">_represent_untagged</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">representer</span><span class="p">,</span> <span class="n">node</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">representer</span><span class="o">.</span><span class="n">represent_mapping</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">_kwargs</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">dumps</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model</span><span class="p">):</span>
+        <span class="n">buf</span> <span class="o">=</span> <span class="n">StringIO</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">buf</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">buf</span><span class="o">.</span><span class="n">getvalue</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">dump</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">where</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_yaml</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">where</span><span class="p">)</span>
+
+
 <span class="k">class</span> <span class="nc">Deserializer</span><span class="p">:</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ignore</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">}):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ignore</span> <span class="o">=</span> <span class="n">ignore</span>
@@ -235,8 +276,9 @@
         <span class="k">elif</span> <span class="n">type_</span> <span class="o">==</span> <span class="s2">&quot;same_as&quot;</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">SameAs</span><span class="p">(</span><span class="n">as_dict</span><span class="p">[</span><span class="s2">&quot;ref&quot;</span><span class="p">])</span>
         <span class="k">elif</span> <span class="n">type_</span> <span class="o">==</span> <span class="s2">&quot;array&quot;</span><span class="p">:</span>
+            <span class="n">length</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">as_dict</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;length&quot;</span><span class="p">))</span>
             <span class="n">content</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">as_dict</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;content&quot;</span><span class="p">))</span>
-            <span class="k">return</span> <span class="n">Array</span><span class="p">(</span><span class="n">content</span><span class="o">=</span><span class="n">content</span><span class="p">,</span> <span class="o">**</span><span class="n">as_dict</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">Array</span><span class="p">(</span><span class="n">content</span><span class="o">=</span><span class="n">content</span><span class="p">,</span> <span class="n">length</span><span class="o">=</span><span class="n">length</span><span class="p">,</span> <span class="o">**</span><span class="n">as_dict</span><span class="p">)</span>
         <span class="k">elif</span> <span class="n">type_</span> <span class="o">==</span> <span class="s2">&quot;object&quot;</span><span class="p">:</span>
             <span class="n">kwargs</span> <span class="o">=</span> <span class="p">{}</span>
             <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">as_dict</span><span class="p">:</span>
@@ -294,13 +336,10 @@
 <span class="sd">            non-negative numbers.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
+    <span class="n">yaml_tag</span> <span class="o">=</span> <span class="s2">&quot;!array&quot;</span>
+
 <div class="viewcode-block" id="Array.__init__"><a class="viewcode-back" href="../../content/api/model/synthpy.model.Array.html#synthpy.model.Array.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">content</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">length</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">Array</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s2">&quot;array&quot;</span><span class="p">,</span> <span class="n">content</span><span class="o">=</span><span class="n">content</span><span class="p">,</span> <span class="n">length</span><span class="o">=</span><span class="n">length</span><span class="p">)</span></div></div>
-
-
-<span class="k">class</span> <span class="nc">Field</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">optional</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">Field</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">optional</span><span class="o">=</span><span class="n">optional</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
 
 <div class="viewcode-block" id="Object"><a class="viewcode-back" href="../../content/api/model/synthpy.model.Object.html#synthpy.model.Object">[docs]</a><span class="k">class</span> <span class="nc">Object</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
@@ -310,6 +349,8 @@
 <span class="sd">        **kwargs: key/value pairs of fields in the object. Values must</span>
 <span class="sd">            be model instances.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">yaml_tag</span> <span class="o">=</span> <span class="s2">&quot;!object&quot;</span>
 
 <div class="viewcode-block" id="Object.__init__"><a class="viewcode-back" href="../../content/api/model/synthpy.model.Object.html#synthpy.model.Object.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">Object</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s2">&quot;object&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
@@ -328,6 +369,9 @@
 <span class="sd">        **kwargs (optional): additional arguments to pass to the</span>
 <span class="sd">            underlying faker generator</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">yaml_tag</span> <span class="o">=</span> <span class="s2">&quot;!faker&quot;</span>
+
 <div class="viewcode-block" id="Faker.__init__"><a class="viewcode-back" href="../../content/api/model/synthpy.model.Faker.html#synthpy.model.Faker.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">generator</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">Faker</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">generator</span><span class="o">=</span><span class="n">generator</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
 
@@ -346,8 +390,13 @@
 <span class="sd">        begin (str, optional): the lowest possible date/time.</span>
 <span class="sd">        end (str, optional): the highest possible date/time.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-<div class="viewcode-block" id="DateTime.__init__"><a class="viewcode-back" href="../../content/api/model/synthpy.model.DateTime.html#synthpy.model.DateTime.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">begin</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">DateTime</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="nb">format</span><span class="o">=</span><span class="nb">format</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">type</span><span class="p">,</span> <span class="n">begin</span><span class="o">=</span><span class="n">begin</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="n">end</span><span class="p">)</span></div>
+
+    <span class="n">yaml_tag</span> <span class="o">=</span> <span class="s2">&quot;!date_time&quot;</span>
+
+<div class="viewcode-block" id="DateTime.__init__"><a class="viewcode-back" href="../../content/api/model/synthpy.model.DateTime.html#synthpy.model.DateTime.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">subtype</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">begin</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">DateTime</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
+            <span class="nb">format</span><span class="o">=</span><span class="nb">format</span><span class="p">,</span> <span class="n">subtype</span><span class="o">=</span><span class="n">subtype</span><span class="p">,</span> <span class="n">begin</span><span class="o">=</span><span class="n">begin</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="n">end</span>
+        <span class="p">)</span></div>
 
     <span class="k">def</span> <span class="nf">_into_content</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">String</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
@@ -373,6 +422,9 @@
 <span class="sd">    - :class:`~synthpy.model.Categorical`: the specification of a</span>
 <span class="sd">      categorical domain to sample from. Elements must be booleans.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">yaml_tag</span> <span class="o">=</span> <span class="s2">&quot;!bool&quot;</span>
+
 <div class="viewcode-block" id="Bool.__init__"><a class="viewcode-back" href="../../content/api/model/synthpy.model.Bool.html#synthpy.model.Bool.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">variant</span><span class="p">):</span>
         <span class="n">kwargs</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">variant</span><span class="p">,</span> <span class="nb">bool</span><span class="p">):</span>
@@ -428,15 +480,15 @@
 <span class="sd">        subtype (str, optional): if specified, must be one of &quot;f64&quot;,</span>
 <span class="sd">            &quot;i64&quot;, &quot;u64&quot;.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">yaml_tag</span> <span class="o">=</span> <span class="s2">&quot;!number&quot;</span>
+
 <div class="viewcode-block" id="Number.__init__"><a class="viewcode-back" href="../../content/api/model/synthpy.model.Number.html#synthpy.model.Number.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">variant</span><span class="p">,</span> <span class="n">subtype</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="n">kwargs</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">variant</span><span class="p">,</span> <span class="nb">range</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">variant</span><span class="p">,</span> <span class="n">Range</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">variant</span><span class="p">,</span> <span class="nb">range</span><span class="p">):</span>
+            <span class="n">variant</span> <span class="o">=</span> <span class="n">Range</span><span class="o">.</span><span class="n">_ensure</span><span class="p">(</span><span class="n">variant</span><span class="p">)</span>
             <span class="n">inferred</span> <span class="o">=</span> <span class="n">number_subtype</span><span class="p">([</span><span class="n">variant</span><span class="o">.</span><span class="n">start</span><span class="p">,</span> <span class="n">variant</span><span class="o">.</span><span class="n">stop</span><span class="p">])</span>
-            <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;range&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
-                <span class="s2">&quot;low&quot;</span><span class="p">:</span> <span class="n">variant</span><span class="o">.</span><span class="n">start</span><span class="p">,</span>
-                <span class="s2">&quot;step&quot;</span><span class="p">:</span> <span class="n">variant</span><span class="o">.</span><span class="n">step</span><span class="p">,</span>
-                <span class="s2">&quot;high&quot;</span><span class="p">:</span> <span class="n">variant</span><span class="o">.</span><span class="n">stop</span><span class="p">,</span>
-            <span class="p">}</span>
+            <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;range&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">variant</span>
         <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">variant</span><span class="p">,</span> <span class="n">Categorical</span><span class="p">):</span>
             <span class="n">inferred</span> <span class="o">=</span> <span class="n">number_subtype</span><span class="p">(</span><span class="n">variant</span><span class="o">.</span><span class="n">choices</span><span class="p">)</span>
             <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;categorical&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">variant</span>
@@ -448,26 +500,56 @@
 
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">range</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">subtype</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Build a ``Number`` model from an interval</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;Build a ``Number`` model from an interval&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">kwargs</span><span class="p">:</span>
             <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span>
-            <span class="n">r</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;low&quot;</span><span class="p">],</span> <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;high&quot;</span><span class="p">],</span> <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;step&quot;</span><span class="p">])</span>
+            <span class="n">r</span> <span class="o">=</span> <span class="n">Range</span><span class="p">(</span><span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;low&quot;</span><span class="p">],</span> <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;high&quot;</span><span class="p">],</span> <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;step&quot;</span><span class="p">])</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="p">[</span><span class="n">r</span><span class="p">]</span> <span class="o">=</span> <span class="n">args</span>
-            <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="nb">range</span><span class="p">)</span>
+            <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">Range</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="nb">range</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">subtype</span><span class="o">=</span><span class="n">subtype</span><span class="p">)</span>
 
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">constant</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">subtype</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Build a ``Number`` model generating only a constant number</span>
-
-<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;Build a ``Number`` model generating only a constant number&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">subtype</span><span class="o">=</span><span class="n">subtype</span><span class="p">)</span>
 
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">categorical</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">choices</span><span class="p">,</span> <span class="n">subtype</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">choices</span><span class="p">,</span> <span class="n">subtype</span><span class="o">=</span><span class="n">subtype</span><span class="p">)</span></div>
+
+
+<span class="k">class</span> <span class="nc">Range</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">yaml_tag</span> <span class="o">=</span> <span class="s2">&quot;!range&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">low</span><span class="p">,</span> <span class="n">high</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Range</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">low</span><span class="o">=</span><span class="n">low</span><span class="p">,</span> <span class="n">high</span><span class="o">=</span><span class="n">high</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="n">step</span><span class="p">)</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">_ensure</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">variant</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">variant</span><span class="p">,</span> <span class="nb">range</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">Range</span><span class="p">(</span><span class="n">low</span><span class="o">=</span><span class="n">variant</span><span class="o">.</span><span class="n">start</span><span class="p">,</span> <span class="n">high</span><span class="o">=</span><span class="n">variant</span><span class="o">.</span><span class="n">stop</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="n">variant</span><span class="o">.</span><span class="n">step</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">variant</span><span class="p">,</span> <span class="bp">cls</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">variant</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;do not know how to convert into &#39;Range&#39; for </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">variant</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">start</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="p">[</span><span class="s2">&quot;low&quot;</span><span class="p">]</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">stop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="p">[</span><span class="s2">&quot;high&quot;</span><span class="p">]</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">step</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="p">[</span><span class="s2">&quot;step&quot;</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">_into_content</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">Number</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
 
 <div class="viewcode-block" id="SameAs"><a class="viewcode-back" href="../../content/api/model/synthpy.model.SameAs.html#synthpy.model.SameAs">[docs]</a><span class="k">class</span> <span class="nc">SameAs</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
@@ -477,6 +559,9 @@
 <span class="sd">        ref (str): a field address that is the pointee of this</span>
 <span class="sd">            reference.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">yaml_tag</span> <span class="o">=</span> <span class="s2">&quot;!same_as&quot;</span>
+
 <div class="viewcode-block" id="SameAs.__init__"><a class="viewcode-back" href="../../content/api/model/synthpy.model.SameAs.html#synthpy.model.SameAs.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ref</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">SameAs</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s2">&quot;same_as&quot;</span><span class="p">,</span> <span class="n">ref</span><span class="o">=</span><span class="n">ref</span><span class="p">)</span></div></div>
 
@@ -500,6 +585,8 @@
 <span class="sd">            instances.</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">yaml_tag</span> <span class="o">=</span> <span class="s2">&quot;!one_of&quot;</span>
 
 <div class="viewcode-block" id="OneOf.__init__"><a class="viewcode-back" href="../../content/api/model/synthpy.model.OneOf.html#synthpy.model.OneOf.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">variants</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">OneOf</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s2">&quot;one_of&quot;</span><span class="p">,</span> <span class="n">variants</span><span class="o">=</span><span class="n">variants</span><span class="p">)</span></div>
@@ -526,6 +613,8 @@
 <span class="sd">        variant (optional): a variant of string model, as described</span>
 <span class="sd">            above.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">yaml_tag</span> <span class="o">=</span> <span class="s2">&quot;!string&quot;</span>
 
 <div class="viewcode-block" id="String.__init__"><a class="viewcode-back" href="../../content/api/model/synthpy.model.String.html#synthpy.model.String.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">variant</span><span class="p">):</span>
         <span class="n">kwargs</span> <span class="o">=</span> <span class="p">{}</span>
@@ -562,13 +651,15 @@
         <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">regex</span><span class="p">)</span>
 
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">date_time</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">begin</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">date_time</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">subtype</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">begin</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Build a ``String`` model generating valid ``strftime``</span>
 <span class="sd">        formatted dates, times and datetimes.</span>
 
 <span class="sd">        Arguments are the same as for :class:`~synthpy.model.DateTime`.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="n">DateTime</span><span class="p">(</span><span class="nb">format</span><span class="o">=</span><span class="nb">format</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">type</span><span class="p">,</span> <span class="n">begin</span><span class="o">=</span><span class="n">begin</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="n">end</span><span class="p">)</span><span class="o">.</span><span class="n">_into_content</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">DateTime</span><span class="p">(</span>
+            <span class="nb">format</span><span class="o">=</span><span class="nb">format</span><span class="p">,</span> <span class="n">subtype</span><span class="o">=</span><span class="n">subtype</span><span class="p">,</span> <span class="n">begin</span><span class="o">=</span><span class="n">begin</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="n">end</span>
+        <span class="p">)</span><span class="o">.</span><span class="n">_into_content</span><span class="p">()</span>
 
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">categorical</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">choices</span><span class="p">):</span>
@@ -600,7 +691,7 @@
   <div class="container">
     <p>
           &copy; Copyright 2020 - OpenQuery.<br/>
-        Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.3.1.<br/>
+        Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.4.2.<br/>
     </p>
   </div>
 </footer>

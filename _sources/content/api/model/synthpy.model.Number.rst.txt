@@ -17,6 +17,7 @@
       ~Number.categorical
       ~Number.constant
       ~Number.range
+      ~Number.to_yaml
    
    
 
@@ -26,8 +27,6 @@
 
    .. autosummary::
    
-      ~Number.optional
-      ~Number.type
-      ~Number.weight
+      ~Number.yaml_tag
    
    

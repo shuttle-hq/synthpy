@@ -14,6 +14,7 @@
    .. autosummary::
    
       ~Faker.__init__
+      ~Faker.to_yaml
    
    
 
@@ -23,8 +24,6 @@
 
    .. autosummary::
    
-      ~Faker.optional
-      ~Faker.type
-      ~Faker.weight
+      ~Faker.yaml_tag
    
    

@@ -17,6 +17,7 @@
       ~Bool.categorical
       ~Bool.constant
       ~Bool.frequency
+      ~Bool.to_yaml
    
    
 
@@ -26,8 +27,6 @@
 
    .. autosummary::
    
-      ~Bool.optional
-      ~Bool.type
-      ~Bool.weight
+      ~Bool.yaml_tag
    
    

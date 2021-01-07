@@ -34,7 +34,6 @@
     <script src="../../../_static/jquery.js"></script>
     <script src="../../../_static/underscore.js"></script>
     <script src="../../../_static/doctools.js"></script>
-    <script src="../../../_static/language_data.js"></script>
     <link rel="shortcut icon" href="../../../_static/getsynth_favicon.png"/>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -232,7 +231,7 @@
 <h1>synthpy.model.DateTime<a class="headerlink" href="#synthpy-model-datetime" title="Permalink to this headline">¶</a></h1>
 <dl class="py class">
 <dt id="synthpy.model.DateTime">
-<em class="property">class </em><code class="sig-prename descclassname">synthpy.model.</code><code class="sig-name descname">DateTime</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">format</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">type</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">begin</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">end</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/synthpy/model.html#DateTime"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#synthpy.model.DateTime" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">synthpy.model.</code><code class="sig-name descname">DateTime</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">format</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">subtype</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">begin</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">end</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/synthpy/model.html#DateTime"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#synthpy.model.DateTime" title="Permalink to this definition">¶</a></dt>
 <dd><p>A subtype for string models that generate values from a
 date/time/datetime range</p>
 <dl class="field-list simple">
@@ -248,7 +247,7 @@ date/time/datetime range</p>
 </dl>
 <dl class="py method">
 <dt id="synthpy.model.DateTime.__init__">
-<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">format</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">type</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">begin</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">end</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/synthpy/model.html#DateTime.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#synthpy.model.DateTime.__init__" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">format</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">subtype</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">begin</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">end</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/synthpy/model.html#DateTime.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#synthpy.model.DateTime.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
 </dd></dl>
 
@@ -259,8 +258,11 @@ date/time/datetime range</p>
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#synthpy.model.DateTime.__init__" title="synthpy.model.DateTime.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code></a>([format, type, begin, end])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#synthpy.model.DateTime.__init__" title="synthpy.model.DateTime.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code></a>([format, subtype, begin, end])</p></td>
 <td><p>Initialize self.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_yaml</span></code>(representer, node)</p></td>
+<td><p></p></td>
 </tr>
 </tbody>
 </table>
@@ -271,13 +273,7 @@ date/time/datetime range</p>
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">optional</span></code></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">type</span></code></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">weight</span></code></p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">yaml_tag</span></code></p></td>
 <td><p></p></td>
 </tr>
 </tbody>
@@ -311,7 +307,7 @@ date/time/datetime range</p>
   <div class="container">
     <p>
           &copy; Copyright 2020 - OpenQuery.<br/>
-        Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.3.1.<br/>
+        Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.4.2.<br/>
     </p>
   </div>
 </footer>
