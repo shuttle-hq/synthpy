@@ -46,7 +46,6 @@ def shell(ctx, host, namespace, log_level, ipython):
     from synthpy import (
         Synth,
         Array,
-        Field,
         OneOf,
         Object,
         Faker,
@@ -54,6 +53,7 @@ def shell(ctx, host, namespace, log_level, ipython):
         Categorical,
         Bool,
         Number,
+        Range,
         SameAs,
         String,
     )
@@ -76,7 +76,6 @@ def shell(ctx, host, namespace, log_level, ipython):
         scope_vars = {
             client_name: client,
             "Array": Array,
-            "Field": Field,
             "OneOf": OneOf,
             "Object": Object,
             "Faker": Faker,
@@ -84,6 +83,7 @@ def shell(ctx, host, namespace, log_level, ipython):
             "Categorical": Categorical,
             "Bool": Bool,
             "Number": Number,
+            "Range": Range,
             "SameAs": SameAs,
             "String": String,
         }

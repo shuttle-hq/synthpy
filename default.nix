@@ -21,5 +21,6 @@ python.pkgs.buildPythonPackage {
     coloredlogs
     aiohttp
     ipython
+    ruamel_yaml
   ];
 }

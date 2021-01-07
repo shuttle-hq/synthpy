@@ -1,6 +1,7 @@
 from .transport import Method
 from .utils import NamespacedClient, scoped
 from ..exceptions import ImproperlyConfigured
+from ..model import Model
 
 
 class IngestClient(NamespacedClient):
@@ -74,6 +75,8 @@ class IngestClient(NamespacedClient):
             kwargs.update({"batch": batch})
 
         if hint is not None:
+            if isinstance(hint, Model):
+                hint = hint._into_content()._into_repr()
             kwargs.update({"hint": hint})
 
         request.body(**kwargs)

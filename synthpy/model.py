@@ -1,33 +1,39 @@
+from ruamel.yaml import YAML
+from io import StringIO
+
+
 class Model:
-    def __init__(self, **kwargs):
+    def __init__(self, type=None, **kwargs):
         self._kwargs = kwargs
+
+        if type:
+            self._type = type
 
     def _into_content(self):
         return self
 
-    @property
-    def type(self):
-        return self._kwargs["type"]
-
-    @property
-    def weight(self):
-        return self._kwargs["weight"]
-
-    @property
-    def optional(self):
-        return self._kwargs["optional"]
-
     def __getitem__(self, idx):
         return self._kwargs[idx]
+
+    def __setitem__(self, idx, what):
+        self._kwargs[idx] = what
+
+    def __delitem__(self, idx):
+        del self._kwargs[idx]
 
     def __iter__(self):
         return iter(self._kwargs)
 
     def __str__(self):
-        return str(self._kwargs)
+        return YAMLSerializer().dumps(self)
 
     def _repr_pretty_(self, p, cycle):
-        p.text(str(self))
+        as_yaml = YAMLSerializer().dumps(self)
+        p.text(as_yaml)
+
+    @classmethod
+    def to_yaml(cls, representer, node):
+        return representer.represent_mapping(cls.yaml_tag, node._kwargs)
 
     def _into_repr(self):
         out = {}
@@ -43,9 +49,13 @@ class Model:
                         except AttributeError:
                             v_.append(element)
                     v = v_
-                    print("done")
-
             out[k] = v
+
+        try:
+            out["type"] = self._type
+        except AttributeError:
+            pass
+
         return out
 
 
@@ -69,6 +79,38 @@ def number_subtype(instances):
         return "f64"
 
 
+class YAMLSerializer:
+    def __init__(self):
+        yaml = YAML()
+
+        for cls in [
+            Array,
+            OneOf,
+            SameAs,
+            Object,
+            Number,
+            String,
+            Bool,
+            DateTime,
+            Faker,
+            Range,
+        ]:
+            yaml.register_class(cls)
+
+        self._yaml = yaml
+
+    def _represent_untagged(self, representer, node):
+        return representer.represent_mapping(node._kwargs)
+
+    def dumps(self, model):
+        buf = StringIO()
+        self.dump(model, buf)
+        return buf.getvalue()
+
+    def dump(self, model, where):
+        return self._yaml.dump(model, where)
+
+
 class Deserializer:
     def __init__(self, ignore={"type"}):
         self.ignore = ignore
@@ -88,8 +130,9 @@ class Deserializer:
         elif type_ == "same_as":
             return SameAs(as_dict["ref"])
         elif type_ == "array":
+            length = self.load(as_dict.pop("length"))
             content = self.load(as_dict.pop("content"))
-            return Array(content=content, **as_dict)
+            return Array(content=content, length=length, **as_dict)
         elif type_ == "object":
             kwargs = {}
             for key in as_dict:
@@ -147,13 +190,10 @@ class Array(Model):
             non-negative numbers.
     """
 
+    yaml_tag = "!array"
+
     def __init__(self, content=None, length=None):
         super(Array, self).__init__(type="array", content=content, length=length)
-
-
-class Field(Model):
-    def __init__(self, optional=None, **kwargs):
-        super(Field, self).__init__(optional=optional, **kwargs)
 
 
 class Object(Model):
@@ -163,6 +203,8 @@ class Object(Model):
         **kwargs: key/value pairs of fields in the object. Values must
             be model instances.
     """
+
+    yaml_tag = "!object"
 
     def __init__(self, **kwargs):
         super(Object, self).__init__(type="object", **kwargs)
@@ -181,6 +223,9 @@ class Faker(Model):
         **kwargs (optional): additional arguments to pass to the
             underlying faker generator
     """
+
+    yaml_tag = "!faker"
+
     def __init__(self, generator=None, **kwargs):
         super(Faker, self).__init__(generator=generator, **kwargs)
 
@@ -199,8 +244,13 @@ class DateTime(Model):
         begin (str, optional): the lowest possible date/time.
         end (str, optional): the highest possible date/time.
     """
-    def __init__(self, format=None, type=None, begin=None, end=None):
-        super(DateTime, self).__init__(format=format, type=type, begin=begin, end=end)
+
+    yaml_tag = "!date_time"
+
+    def __init__(self, format=None, subtype=None, begin=None, end=None):
+        super(DateTime, self).__init__(
+            format=format, subtype=subtype, begin=begin, end=end
+        )
 
     def _into_content(self):
         return String(self)
@@ -226,6 +276,9 @@ class Bool(Model):
     - :class:`~synthpy.model.Categorical`: the specification of a
       categorical domain to sample from. Elements must be booleans.
     """
+
+    yaml_tag = "!bool"
+
     def __init__(self, variant):
         kwargs = {}
         if isinstance(variant, bool):
@@ -281,15 +334,15 @@ class Number(Model):
         subtype (str, optional): if specified, must be one of "f64",
             "i64", "u64".
     """
+
+    yaml_tag = "!number"
+
     def __init__(self, variant, subtype=None):
         kwargs = {}
-        if isinstance(variant, range):
+        if isinstance(variant, Range) or isinstance(variant, range):
+            variant = Range._ensure(variant)
             inferred = number_subtype([variant.start, variant.stop])
-            kwargs["range"] = {
-                "low": variant.start,
-                "step": variant.step,
-                "high": variant.stop,
-            }
+            kwargs["range"] = variant
         elif isinstance(variant, Categorical):
             inferred = number_subtype(variant.choices)
             kwargs["categorical"] = variant
@@ -301,26 +354,56 @@ class Number(Model):
 
     @classmethod
     def range(cls, *args, subtype=None, **kwargs):
-        """Build a ``Number`` model from an interval
-        """
+        """Build a ``Number`` model from an interval"""
         if kwargs:
             assert len(args) == 0
-            r = range(kwargs["low"], kwargs["high"], kwargs["step"])
+            r = Range(kwargs["low"], kwargs["high"], kwargs["step"])
         else:
             [r] = args
-            assert isinstance(r, range)
+            assert isinstance(r, Range) or isinstance(r, range)
         return cls(r, subtype=subtype)
 
     @classmethod
     def constant(cls, c, subtype=None):
-        """Build a ``Number`` model generating only a constant number
-
-        """
+        """Build a ``Number`` model generating only a constant number"""
         return cls(c, subtype=subtype)
 
     @classmethod
     def categorical(cls, choices, subtype=None):
         return cls(choices, subtype=subtype)
+
+
+class Range(Model):
+    yaml_tag = "!range"
+
+    def __init__(self, low, high, step=None):
+        super(Range, self).__init__(low=low, high=high, step=step)
+
+    @classmethod
+    def _ensure(cls, variant):
+        if isinstance(variant, range):
+            return Range(low=variant.start, high=variant.stop, step=variant.step)
+        elif isinstance(variant, cls):
+            return variant
+        else:
+            raise ValueError(
+                f"do not know how to convert into 'Range' for {type(variant)}"
+            )
+
+    @property
+    def start(self):
+        return self["low"]
+
+    @property
+    def stop(self):
+        return self["high"]
+
+    @property
+    def step(self):
+        return self["step"]
+
+    def _into_content(self):
+        return Number(self)
 
 
 class SameAs(Model):
@@ -330,6 +413,9 @@ class SameAs(Model):
         ref (str): a field address that is the pointee of this
             reference.
     """
+
+    yaml_tag = "!same_as"
+
     def __init__(self, ref):
         super(SameAs, self).__init__(type="same_as", ref=ref)
 
@@ -353,6 +439,8 @@ class OneOf(Model):
             instances.
 
     """
+
+    yaml_tag = "!one_of"
 
     def __init__(self, variants):
         super(OneOf, self).__init__(type="one_of", variants=variants)
@@ -379,6 +467,8 @@ class String(Model):
         variant (optional): a variant of string model, as described
             above.
     """
+
+    yaml_tag = "!string"
 
     def __init__(self, variant):
         kwargs = {}
@@ -415,13 +505,15 @@ class String(Model):
         return cls(regex)
 
     @classmethod
-    def date_time(cls, format=None, type=None, begin=None, end=None):
+    def date_time(cls, format=None, subtype=None, begin=None, end=None):
         """Build a ``String`` model generating valid ``strftime``
         formatted dates, times and datetimes.
 
         Arguments are the same as for :class:`~synthpy.model.DateTime`.
         """
-        return DateTime(format=format, type=type, begin=begin, end=end)._into_content()
+        return DateTime(
+            format=format, subtype=subtype, begin=begin, end=end
+        )._into_content()
 
     @classmethod
     def categorical(cls, choices):

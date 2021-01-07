@@ -3,7 +3,6 @@ import logging
 from .client import Synth
 from .model import (
     Array,
-    Field,
     Object,
     OneOf,
     Faker,
@@ -11,6 +10,7 @@ from .model import (
     Categorical,
     Bool,
     Number,
+    Range,
     SameAs,
     String,
 )
@@ -33,7 +33,6 @@ __all__ = [
     "ImproperlyConfigured",
     "TransportError",
     "Array",
-    "Field",
     "Object",
     "Faker",
     "OneOf",
@@ -41,6 +40,7 @@ __all__ = [
     "Categorical",
     "Bool",
     "Number",
+    "Range",
     "SameAs",
     "String",
     "__version__",

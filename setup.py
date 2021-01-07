@@ -25,6 +25,7 @@ setup(
         "click>=7.0,<8.0",
         "colored>=1.4.2,<1.5.0",
         "coloredlogs>=10.0,<16.0",
+        "ruamel.yaml<0.17"
     ],
     python_requires=">=3.7",
 )
