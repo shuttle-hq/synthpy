@@ -16,6 +16,7 @@
       ~Number.__init__
       ~Number.categorical
       ~Number.constant
+      ~Number.id
       ~Number.range
       ~Number.to_yaml
    
