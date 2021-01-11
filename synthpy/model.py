@@ -92,6 +92,7 @@ class YAMLSerializer:
             String,
             Bool,
             DateTime,
+            Id,
             Faker,
             Range,
         ]:
@@ -343,6 +344,9 @@ class Number(Model):
             variant = Range._ensure(variant)
             inferred = number_subtype([variant.start, variant.stop])
             kwargs["range"] = variant
+        elif isinstance(variant, Id):
+            inferred = number_subtype([variant["start_at"]])
+            kwargs["id"] = variant
         elif isinstance(variant, Categorical):
             inferred = number_subtype(variant.choices)
             kwargs["categorical"] = variant
@@ -369,8 +373,23 @@ class Number(Model):
         return cls(c, subtype=subtype)
 
     @classmethod
+    def id(cls, start_at=0, subtype=None):
+        """Build a ``Number`` model generating only incrementing sequences of numbers"""
+        return cls(Id(start_at=start_at), subtype=subtype)
+
+    @classmethod
     def categorical(cls, choices, subtype=None):
         return cls(choices, subtype=subtype)
+
+
+class Id(Model):
+    yaml_tag = "!id"
+
+    def __init__(self, start_at):
+        super(Id, self).__init__(start_at=start_at)
+
+    def _into_content(self):
+        return Number(self)
 
 
 class Range(Model):
