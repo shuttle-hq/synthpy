@@ -221,14 +221,16 @@ class Faker(Model):
     Args:
         generator (str, optional): the name of a faker attribute to
             sample from
+        locales (List[str], optional): the list of faker locales to
+            restrict this generator to
         **kwargs (optional): additional arguments to pass to the
             underlying faker generator
     """
 
     yaml_tag = "!faker"
 
-    def __init__(self, generator=None, **kwargs):
-        super(Faker, self).__init__(generator=generator, **kwargs)
+    def __init__(self, generator=None, locales=None, **kwargs):
+        super(Faker, self).__init__(generator=generator, locales=None, **kwargs)
 
     def _into_content(self):
         return String(self)
@@ -506,12 +508,12 @@ class String(Model):
         super(String, self).__init__(type="string", **kwargs)
 
     @classmethod
-    def faker(cls, generator=None, **kwargs):
+    def faker(cls, generator=None, locales=None, **kwargs):
         """Build a ``String`` model generating strings from a faker provider.
 
         Arguments are the same as for :class:`~synthpy.model.Faker`.
         """
-        return Faker(generator=generator, **kwargs)._into_content()
+        return Faker(generator=generator, locales=None, **kwargs)._into_content()
 
     @classmethod
     def pattern(cls, regex=None):
