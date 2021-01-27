@@ -27,7 +27,7 @@ class IngestClient(NamespacedClient):
 
         This supports both individual and batch document ingestion. In
         general, batch is favored as it results in fewer individual
-        API requests and allows ``synthd`` to optimize its internal
+        API requests and allows ``synth`` to optimize its internal
         updating of the collection's model.
 
         :param namespace: The name of the namespace we should ingest the document(s) to.

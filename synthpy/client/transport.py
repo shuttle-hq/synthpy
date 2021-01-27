@@ -42,7 +42,7 @@ class Path:
 
 
 class RequestBuilder:
-    """Builder for ``synthd`` API requests.
+    """Builder for ``synth`` API requests.
     """
 
     def __init__(self, method, transport):
@@ -117,7 +117,7 @@ class Transport:
         return self.base_url.with_path(str(path))
 
     async def execute(self, request):
-        """Coroutine for sending a request to the ``synthd`` host and handling
+        """Coroutine for sending a request to the ``synth`` host and handling
         the response.
 
         Args:

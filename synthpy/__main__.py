@@ -22,7 +22,7 @@ Welcome to
 @click.option(
     "--host",
     type=str,
-    help="the synthd host (default: localhost:8182)",
+    help="the synth host (default: localhost:8182)",
     default="localhost:8182",
 )
 @click.option(

@@ -5,7 +5,7 @@
 .. note::
    This section assumes you have completed the :ref:`installation
    process <installation>` and have an instance of
-   :ref:`synthd<synthd>` running on ``localhost:8182``. If your setup
+   :ref:`synth<synth>` running on ``localhost:8182``. If your setup
    is different, you might need to make the appropriate changes to the
    examples given.
 
@@ -49,7 +49,7 @@ Once you have successfully installed :ref:`synthpy <getting_started>`, we can
 get started generating some synthetic data. The first thing we have to
 do is instantiate the main API client :class:`~synthpy.client.Synth`,
 from which we can access all the functionalities of
-:ref:`synthd<synthd>`. From a Python REPL:
+:ref:`synth<synth>`. From a Python REPL:
 
 .. code-block:: python
 

@@ -25,7 +25,7 @@ def run_in_event_loop(self, f):
 
 
 class Synth:
-    """Main client for consuming the ``synthd`` API.
+    """Main client for consuming the ``synth`` API.
 
     This class can be used in one of two ways:
 
@@ -54,7 +54,7 @@ class Synth:
         override (OverrideClient): The subclient for the Override API.
 
     Args:
-        host (str): the :ref:`synthd <synthd>` node we should connect to. This
+        host (str): the :ref:`synth <synth>` node we should connect to. This
             should be a string of the form "{host}[:{port}]".
         **kwargs: extra arguments passed through to the inner
             :class:`.Transport` handler.

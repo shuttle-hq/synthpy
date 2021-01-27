@@ -11,7 +11,7 @@ setup(
     version=__version__,
     author="Damien Broka",
     author_email="damien@getsynth.com",
-    description="A Python-native synthd client library",
+    description="A Python-native synth client library",
     long_description=readme,
     long_description_content_type='text/markdown',
     scripts=["bin/synthpy"],

@@ -36,12 +36,12 @@ With [`Synth`][getsynth] you can:
 
 It has two components:
 
-* [`synthd`][synthd]: a persistent process that ingests raw (usually
+* [`synth`][synth]: a persistent process that ingests raw (usually
   sensitive) training data and trains and builds synthetic data models
   from it. Think of it as a NoSQL datastore that never persists actual
   data, only anonymized model parameters.
 * [`synthpy`][synthpy]: our reference Python implementation for the
-  [`synthd`][synthd] API. This lets you leverage [`synthd`][synthd] in
+  [`synth`][synth] API. This lets you leverage [`synth`][synth] in
   custom scripts and test harnesses.
   
 # Quickstart
@@ -51,13 +51,13 @@ Here is an end-to-end example using the Python client, [`synthpy`][synthpy].
 ```python
 from synthpy import Synth
 
-# Assuming `synthd` is running on `localhost` with default settings
+# Assuming `synth` is running on `localhost` with default settings
 client = Synth("localhost:8182")
 
 with open("my_users_data.json", "r") as data_f:
     documents = json.load(data_f)
 
-# Submit your JSON documents to `synthd` for training
+# Submit your JSON documents to `synth` for training
 client.put_documents(namespace="app", collection="users", batch=documents)
 
 # Generate 100 new synthetic users
@@ -68,14 +68,14 @@ synthetic_users = client.get_documents(namespace="app", collection="users", size
 
 As of now, only the Python client for [`Synth`][getsynth] is free and
 open-source. But it is also on our roadmap to open-source big chunks
-of the daemon, [`synthd`][synthd], where the real magic happens! So
+of the daemon, [`synth`][synth], where the real magic happens! So
 stay tuned!
 
 In the meantime, head over to our [documentation][docs] or hit us up
 if you want to [give Synth a try][contact-us]!
 
 [getsynth]: https://getsynth.com
-[synthd]: https://github.com/openquery-io/synthpy/content/installation.html
+[synth]: https://github.com/openquery-io/synthpy/content/installation.html
 [synthpy]: https://github.com/openquery-io/synthpy/content/getting_started.html
 [docs]: https://openquery-io.github.io/synthpy/
 [contact-us]: https://www.getsynth.com/contact

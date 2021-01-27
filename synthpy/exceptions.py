@@ -21,7 +21,7 @@ class ImproperlyConfigured(SynthException):
 
 
 class TransportError(SynthException):
-    """Exception raised when synthd responds with a status code above 400,
+    """Exception raised when synth responds with a status code above 400,
     or when a connection error arises.
     """
 

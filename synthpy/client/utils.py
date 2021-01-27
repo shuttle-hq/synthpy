@@ -44,7 +44,7 @@ def canonicalize(from_):
 
 
 class NamespacedClient:
-    """Base class for a section of the ``synthd`` client API.
+    """Base class for a section of the ``synth`` client API.
 
     Individual APIs should inherit from ``NamespacedClient`` to
     interop easily with the root user-facing client object ``Synth``.
