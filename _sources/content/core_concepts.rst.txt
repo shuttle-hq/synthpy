@@ -8,9 +8,9 @@ Core Concepts
 
    This page is WIP! In the meantime, you can use our `Postman`_ documentation.
 
-What is ``synthd``?
+What is ``synth``?
 ~~~~~~~~~~~~~~~~~~~
-:ref:`synthd<synthd>` is the `Synth <https://getsynth.com>`_
+:ref:`synth<synth>` is the `Synth <https://getsynth.com>`_
 daemon. It is a persistent process that manages and serves synthetic
 data models. `Synth <https://getsynth.com>`_ uses different code for
 the daemon and the client. The daemon exposes a *RESTful* API that can

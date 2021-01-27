@@ -45,13 +45,13 @@ How does it work?
 
 It has two components:
 
-* :ref:`synthd<synthd>`: a persistent process that ingests raw (usually
+* :ref:`synth<synth>`: a persistent process that ingests raw (usually
   sensitive) training data and trains and builds synthetic data models
   from it. Think of it as a NoSQL datastore that never persists actual
   data, only anonymized model parameters.
 * :ref:`synthpy <getting_started>`: a reference Python implementation for the
-  :ref:`synthd<synthd>` API. This lets you leverage
-  :ref:`synthd<synthd>` in custom scripts and test harnesses.
+  :ref:`synth<synth>` API. This lets you leverage
+  :ref:`synth<synth>` in custom scripts and test harnesses.
 
 Quickstart
 ~~~~~~~~~~
@@ -62,13 +62,13 @@ Here is an end-to-end example using the Python client,
 
    from synthpy import Synth
 
-   # Assuming `synthd` is running on `localhost` with default settings
+   # Assuming `synth` is running on `localhost` with default settings
    client = Synth("localhost:8182")
 
    with open("my_users_data.json", "r") as data_f:
        documents = json.load(data_f)
 
-   # Submit your JSON documents to `synthd` for training
+   # Submit your JSON documents to `synth` for training
    client.put_documents(namespace="app", collection="users", batch=documents)
 
    # Generate 100 new synthetic users

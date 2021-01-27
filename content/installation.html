@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Installation &#8212; Synth - NoSQL Synthetic Data Engine</title>
     
-  <link rel="stylesheet" href="../_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
+  <link rel="stylesheet" href="../_static/css/index.f658d18f9b420779cfdf24aa0a7e2d77.css">
 
     
   <link rel="stylesheet"
@@ -28,7 +28,7 @@
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
     
-  <link rel="preload" as="script" href="../_static/js/index.3da636dd464baa7582d2.js">
+  <link rel="preload" as="script" href="../_static/js/index.d3f166471bb80abb5163.js">
 
     <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
@@ -166,8 +166,8 @@
               
               <div>
                 
-  <div class="section" id="synthd">
-<span id="installation"></span><span id="id1"></span><h1>Installation<a class="headerlink" href="#synthd" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="synth">
+<span id="installation"></span><span id="id1"></span><h1>Installation<a class="headerlink" href="#synth" title="Permalink to this headline">¶</a></h1>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>To keep going, you will need to request IAM access to our release
@@ -184,16 +184,16 @@ granted against our release GCP project.</p>
 </div>
 <div class="section" id="first-step">
 <h2>First step<a class="headerlink" href="#first-step" title="Permalink to this headline">¶</a></h2>
-<p>First we need to setup <a class="reference internal" href="#synthd"><span class="std std-ref">synthd</span></a>. We have a couple
+<p>First we need to setup <a class="reference internal" href="#synth"><span class="std std-ref">synth</span></a>. We have a couple
 options:</p>
 <ol class="arabic simple">
 <li><p>Run it <strong>standalone</strong> from a bundled executable that ships all the
-runtime and libraries that <a class="reference internal" href="#synthd"><span class="std std-ref">synthd</span></a> uses. This is a
+runtime and libraries that <a class="reference internal" href="#synth"><span class="std std-ref">synth</span></a> uses. This is a
 good quick solution to get hacking locally but is less stable and
 does not have as good performance owing to its overheads.</p></li>
 <li><p>Deploy our line-up of <strong>custom VM images</strong>. This is the preferred
 solution for use in production. Especially when working in an
-organization or any setup in which <a class="reference internal" href="#synthd"><span class="std std-ref">synthd</span></a> will be
+organization or any setup in which <a class="reference internal" href="#synth"><span class="std std-ref">synth</span></a> will be
 used by more than one user or on heavy datasets.</p></li>
 </ol>
 </div>
@@ -201,14 +201,14 @@ used by more than one user or on heavy datasets.</p></li>
 <h2>Standalone<a class="headerlink" href="#standalone" title="Permalink to this headline">¶</a></h2>
 <p>In standalone mode, you just need to drag and drop a single executable
 binary in your environment. The binary includes an archive of all the
-runtime and dependencies <a class="reference internal" href="#synthd"><span class="std std-ref">synthd</span></a> requires. This adds an
-overhead and can significantly impact <a class="reference internal" href="#synthd"><span class="std std-ref">synthd</span></a>’s
+runtime and dependencies <a class="reference internal" href="#synth"><span class="std std-ref">synth</span></a> requires. This adds an
+overhead and can significantly impact <a class="reference internal" href="#synth"><span class="std std-ref">synth</span></a>’s
 performance, especially on start up.</p>
 <p>The acquire the package, assuming you have been added to the relevant
 <a class="reference external" href="https://cloud.google.com/storage/docs/access-control/iam-permissions">IAM permissions set</a>:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ gsutil cp gs://getsynth-enterprise/standalone/x86_64-linux/latest synthd
-$ chmod +x synthd
-$ ./synthd
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ gsutil cp gs://getsynth-enterprise/standalone/x86_64-linux/latest synth
+$ chmod +x synth
+$ ./synth
 </pre></div>
 </div>
 <p>We currently only have automated builds for <code class="docutils literal notranslate"><span class="pre">Linux</span> <span class="pre">x86_64</span></code>. If
@@ -218,7 +218,7 @@ you need more OS/architecture configurations, let us know!</p>
 <h2>Deploying from VM images<a class="headerlink" href="#deploying-from-vm-images" title="Permalink to this headline">¶</a></h2>
 <p>We maintain automated builds of <a class="reference external" href="https://cloud.google.com/compute/docs/images/create-delete-deprecate-private-images">custom VM images</a>
 that can be used to provision VM instances running pre-configured
-<a class="reference internal" href="#synthd"><span class="std std-ref">synthd</span></a>.</p>
+<a class="reference internal" href="#synth"><span class="std std-ref">synth</span></a>.</p>
 <p>We recommend to get started with deploying a <code class="docutils literal notranslate"><span class="pre">n2-standard-4</span></code>
 <a class="reference external" href="https://cloud.google.com/compute/docs/machine-types">instance type</a>
 as a fair trade off between performance and cost for most starting use
@@ -288,7 +288,7 @@ command-line by running:</p>
     </div>
 
     
-  <script src="../_static/js/index.3da636dd464baa7582d2.js"></script>
+  <script src="../_static/js/index.d3f166471bb80abb5163.js"></script>
 
 
     <footer class="footer mt-5 mt-md-0">

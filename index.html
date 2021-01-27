@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>What is this? &#8212; Synth - NoSQL Synthetic Data Engine</title>
     
-  <link rel="stylesheet" href="_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
+  <link rel="stylesheet" href="_static/css/index.f658d18f9b420779cfdf24aa0a7e2d77.css">
 
     
   <link rel="stylesheet"
@@ -28,7 +28,7 @@
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="_static/basic.css" type="text/css" />
     
-  <link rel="preload" as="script" href="_static/js/index.3da636dd464baa7582d2.js">
+  <link rel="preload" as="script" href="_static/js/index.d3f166471bb80abb5163.js">
 
     <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
@@ -170,7 +170,7 @@
               <div>
                 
   <a class="reference internal image-reference" href="_images/getsynth_identicon.png"><img alt="_images/getsynth_identicon.png" src="_images/getsynth_identicon.png" style="width: 300px;" /></a>
-<p><strong>Date</strong>: Jan 22, 2021 <strong>Version</strong>: 0.2.1</p>
+<p><strong>Date</strong>: Jan 27, 2021 <strong>Version</strong>: 0.2.1</p>
 <div class="section" id="what-is-this">
 <h1>What is this?<a class="headerlink" href="#what-is-this" title="Permalink to this headline">¶</a></h1>
 <p>This is <a class="reference external" href="https://getsynth.com">Synth</a>! A fast and highly
@@ -209,13 +209,13 @@ completely unseen scenario.</p>
 <h1>How does it work?<a class="headerlink" href="#how-does-it-work" title="Permalink to this headline">¶</a></h1>
 <p>It has two components:</p>
 <ul class="simple">
-<li><p><a class="reference internal" href="content/installation.html#synthd"><span class="std std-ref">synthd</span></a>: a persistent process that ingests raw (usually
+<li><p><a class="reference internal" href="content/installation.html#synth"><span class="std std-ref">synth</span></a>: a persistent process that ingests raw (usually
 sensitive) training data and trains and builds synthetic data models
 from it. Think of it as a NoSQL datastore that never persists actual
 data, only anonymized model parameters.</p></li>
 <li><p><a class="reference internal" href="content/getting_started.html#getting-started"><span class="std std-ref">synthpy</span></a>: a reference Python implementation for the
-<a class="reference internal" href="content/installation.html#synthd"><span class="std std-ref">synthd</span></a> API. This lets you leverage
-<a class="reference internal" href="content/installation.html#synthd"><span class="std std-ref">synthd</span></a> in custom scripts and test harnesses.</p></li>
+<a class="reference internal" href="content/installation.html#synth"><span class="std std-ref">synth</span></a> API. This lets you leverage
+<a class="reference internal" href="content/installation.html#synth"><span class="std std-ref">synth</span></a> in custom scripts and test harnesses.</p></li>
 </ul>
 </div>
 <div class="section" id="quickstart">
@@ -224,13 +224,13 @@ data, only anonymized model parameters.</p></li>
 <a class="reference internal" href="content/getting_started.html#getting-started"><span class="std std-ref">synthpy</span></a>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">synthpy</span> <span class="kn">import</span> <span class="n">Synth</span>
 
-<span class="c1"># Assuming `synthd` is running on `localhost` with default settings</span>
+<span class="c1"># Assuming `synth` is running on `localhost` with default settings</span>
 <span class="n">client</span> <span class="o">=</span> <span class="n">Synth</span><span class="p">(</span><span class="s2">&quot;localhost:8182&quot;</span><span class="p">)</span>
 
 <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;my_users_data.json&quot;</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">data_f</span><span class="p">:</span>
     <span class="n">documents</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">data_f</span><span class="p">)</span>
 
-<span class="c1"># Submit your JSON documents to `synthd` for training</span>
+<span class="c1"># Submit your JSON documents to `synth` for training</span>
 <span class="n">client</span><span class="o">.</span><span class="n">put_documents</span><span class="p">(</span><span class="n">namespace</span><span class="o">=</span><span class="s2">&quot;app&quot;</span><span class="p">,</span> <span class="n">collection</span><span class="o">=</span><span class="s2">&quot;users&quot;</span><span class="p">,</span> <span class="n">batch</span><span class="o">=</span><span class="n">documents</span><span class="p">)</span>
 
 <span class="c1"># Generate 100 new synthetic users</span>
@@ -259,7 +259,7 @@ data, only anonymized model parameters.</p></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="content/core_concepts.html">Core Concepts</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="content/core_concepts.html#what-is-synthd">What is <code class="docutils literal notranslate"><span class="pre">synthd</span></code>?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="content/core_concepts.html#what-is-synth">What is <code class="docutils literal notranslate"><span class="pre">synth</span></code>?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="content/core_concepts.html#data-model">Data model</a></li>
 <li class="toctree-l2"><a class="reference internal" href="content/core_concepts.html#ingestion">Ingestion</a></li>
 <li class="toctree-l2"><a class="reference internal" href="content/core_concepts.html#inference">Inference</a></li>
@@ -297,7 +297,7 @@ data, only anonymized model parameters.</p></li>
     </div>
 
     
-  <script src="_static/js/index.3da636dd464baa7582d2.js"></script>
+  <script src="_static/js/index.d3f166471bb80abb5163.js"></script>
 
 
     <footer class="footer mt-5 mt-md-0">

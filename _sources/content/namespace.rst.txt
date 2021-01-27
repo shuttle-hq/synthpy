@@ -3,7 +3,7 @@
 Namespace API
 =============
 
-``synthd``'s data model works with three concepts.
+``synth``'s data model works with three concepts.
 
 1. **Documents**: a `document` is simply a JSON object, i.e. a
    key-value store with string keys.
@@ -12,7 +12,7 @@ Namespace API
    `collections`, with string keys.
 
 The **Namespace API** is the subset of API functionalities of the
-``synthd`` API that allows for listing namespaces, accessing their
+``synth`` API that allows for listing namespaces, accessing their
 inner data models' schemas and rollback operations.
 
 .. currentmodule:: synthpy.client.namespace

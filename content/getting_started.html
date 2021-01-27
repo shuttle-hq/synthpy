@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>synthpy &#8212; Synth - NoSQL Synthetic Data Engine</title>
     
-  <link rel="stylesheet" href="../_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
+  <link rel="stylesheet" href="../_static/css/index.f658d18f9b420779cfdf24aa0a7e2d77.css">
 
     
   <link rel="stylesheet"
@@ -28,7 +28,7 @@
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
     
-  <link rel="preload" as="script" href="../_static/js/index.3da636dd464baa7582d2.js">
+  <link rel="preload" as="script" href="../_static/js/index.d3f166471bb80abb5163.js">
 
     <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
@@ -176,7 +176,7 @@
 <p class="admonition-title">Note</p>
 <p>This section assumes you have completed the <a class="reference internal" href="installation.html#installation"><span class="std std-ref">installation
 process</span></a> and have an instance of
-<a class="reference internal" href="installation.html#synthd"><span class="std std-ref">synthd</span></a> running on <code class="docutils literal notranslate"><span class="pre">localhost:8182</span></code>. If your setup
+<a class="reference internal" href="installation.html#synth"><span class="std std-ref">synth</span></a> running on <code class="docutils literal notranslate"><span class="pre">localhost:8182</span></code>. If your setup
 is different, you might need to make the appropriate changes to the
 examples given.</p>
 </div>
@@ -212,7 +212,7 @@ can also install <a class="reference internal" href="#getting-started"><span cla
 get started generating some synthetic data. The first thing we have to
 do is instantiate the main API client <a class="reference internal" href="api/synthpy.client.Synth.html#synthpy.client.Synth" title="synthpy.client.Synth"><code class="xref py py-class docutils literal notranslate"><span class="pre">Synth</span></code></a>,
 from which we can access all the functionalities of
-<a class="reference internal" href="installation.html#synthd"><span class="std std-ref">synthd</span></a>. From a Python REPL:</p>
+<a class="reference internal" href="installation.html#synth"><span class="std std-ref">synth</span></a>. From a Python REPL:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">synthpy</span> <span class="kn">import</span> <span class="n">Synth</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">synth</span> <span class="o">=</span> <span class="n">Synth</span><span class="p">(</span><span class="s2">&quot;localhost:8182&quot;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">synth</span><span class="o">.</span><span class="n">get_namespaces</span><span class="p">()</span>  <span class="c1"># to check everything is working as expected</span>
@@ -262,7 +262,7 @@ convenience.</p>
     </div>
 
     
-  <script src="../_static/js/index.3da636dd464baa7582d2.js"></script>
+  <script src="../_static/js/index.d3f166471bb80abb5163.js"></script>
 
 
     <footer class="footer mt-5 mt-md-0">

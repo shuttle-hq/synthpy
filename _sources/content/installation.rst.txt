@@ -1,5 +1,5 @@
 .. _installation:
-.. _synthd:
+.. _synth:
 
 Installation
 ============
@@ -22,25 +22,25 @@ granted against our release GCP project.
 First step
 ~~~~~~~~~~
 
-First we need to setup :ref:`synthd<synthd>`. We have a couple
+First we need to setup :ref:`synth<synth>`. We have a couple
 options:
 
 1. Run it **standalone** from a bundled executable that ships all the
-   runtime and libraries that :ref:`synthd<synthd>` uses. This is a
+   runtime and libraries that :ref:`synth<synth>` uses. This is a
    good quick solution to get hacking locally but is less stable and
    does not have as good performance owing to its overheads.
 
 2. Deploy our line-up of **custom VM images**. This is the preferred
    solution for use in production. Especially when working in an
-   organization or any setup in which :ref:`synthd<synthd>` will be
+   organization or any setup in which :ref:`synth<synth>` will be
    used by more than one user or on heavy datasets.
 
 Standalone
 ~~~~~~~~~~
 In standalone mode, you just need to drag and drop a single executable
 binary in your environment. The binary includes an archive of all the
-runtime and dependencies :ref:`synthd<synthd>` requires. This adds an
-overhead and can significantly impact :ref:`synthd<synthd>`'s
+runtime and dependencies :ref:`synth<synth>` requires. This adds an
+overhead and can significantly impact :ref:`synth<synth>`'s
 performance, especially on start up.
 
 The acquire the package, assuming you have been added to the relevant
@@ -49,9 +49,9 @@ The acquire the package, assuming you have been added to the relevant
 
 .. code-block:: bash
 
-   $ gsutil cp gs://getsynth-enterprise/standalone/x86_64-linux/latest synthd
-   $ chmod +x synthd
-   $ ./synthd
+   $ gsutil cp gs://getsynth-enterprise/standalone/x86_64-linux/latest synth
+   $ chmod +x synth
+   $ ./synth
 
 We currently only have automated builds for ``Linux x86_64``. If
 you need more OS/architecture configurations, let us know!
@@ -61,7 +61,7 @@ Deploying from VM images
 We maintain automated builds of `custom VM images
 <https://cloud.google.com/compute/docs/images/create-delete-deprecate-private-images>`_
 that can be used to provision VM instances running pre-configured
-:ref:`synthd<synthd>`.
+:ref:`synth<synth>`.
 
 We recommend to get started with deploying a ``n2-standard-4``
 `instance type <https://cloud.google.com/compute/docs/machine-types>`_

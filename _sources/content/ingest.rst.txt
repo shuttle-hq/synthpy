@@ -4,7 +4,7 @@ Ingest API
 ==========
 **Synth** relies on ingesting raw data samples in order to train its
 internal model of your data. The **Ingest API** is a subset of API
-functionalities of ``synthd`` that allows for ingesting data and thus,
+functionalities of ``synth`` that allows for ingesting data and thus,
 training models from data.
 
 .. currentmodule:: synthpy.client.ingest
